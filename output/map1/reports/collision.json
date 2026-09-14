@@ -3,46 +3,46 @@
   "method": "simplified_static_mesh_and_convex_hulls",
   "collision_source": "cleaned_map_mesh",
   "triangle_count": 2999,
-  "vertex_count": 1591,
+  "vertex_count": 1582,
   "reduction_percentage": 99.05,
   "bounds": [
     [
-      -0.2735,
-      -0.1716,
-      0.7351
+      -6.7609,
+      0.0012,
+      -7.3281
     ],
     [
-      0.2691,
-      0.1234,
-      1.254
+      6.7523,
+      1.0112,
+      7.3565
     ]
   ],
   "extents": [
-    0.5425,
-    0.295,
-    0.5189
+    13.5132,
+    1.01,
+    14.6847
   ],
   "convex_hulls_count": 1,
   "hulls_info": [
     {
       "hull_id": 0,
-      "vertex_count": 94,
-      "face_count": 184,
+      "vertex_count": 92,
+      "face_count": 180,
       "centroid": [
-        -0.0021,
-        -0.0325,
-        1.0074
+        -0.1928,
+        0.4572,
+        -0.297
       ],
       "bounds": [
         [
-          -0.2735,
-          -0.1716,
-          0.7351
+          -6.7609,
+          0.0012,
+          -7.3281
         ],
         [
-          0.2691,
-          0.1234,
-          1.254
+          6.7523,
+          1.0112,
+          7.3565
         ]
       ]
     }

@@ -147,6 +147,45 @@ class MeshCleaner:
             except Exception:
                 pass
 
+        # 6. Ground Plane Alignment & Metric World Scaling
+        if getattr(self.config, "align_ground_plane", True) and len(mesh.vertices) > 20:
+            try:
+                verts = mesh.vertices
+                cov = np.cov(verts, rowvar=False)
+                evals, evecs = np.linalg.eigh(cov)
+                # Primary plane normal corresponds to minimum variance axis
+                normal = evecs[:, 0]
+                
+                # Verify normal points in general direction of face normals
+                fn = mesh.face_normals
+                if np.sum(np.dot(fn, normal)) < 0:
+                    normal = -normal
+                    
+                up = np.array([0.0, 1.0, 0.0])
+                v = np.cross(normal, up)
+                s = np.linalg.norm(v)
+                c = np.dot(normal, up)
+                
+                if s > 1e-6:
+                    vx = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
+                    R = np.eye(3) + vx + vx @ vx * ((1.0 - c) / (s ** 2))
+                    mesh.vertices = (R @ verts.T).T
+                
+                # Center on X and Z, place lowest ground level at Y = 0.0
+                center_x = float(mesh.bounds[0][0] + mesh.bounds[1][0]) / 2.0
+                center_z = float(mesh.bounds[0][2] + mesh.bounds[1][2]) / 2.0
+                min_y = float(mesh.bounds[0][1])
+                mesh.vertices -= [center_x, min_y, center_z]
+                
+                # Scale to realistic outdoor world scale (e.g. 25.0)
+                scale = float(getattr(self.config, "world_scale", 25.0))
+                if scale > 0.0:
+                    mesh.vertices *= scale
+                    
+                mesh.fix_normals()
+            except Exception:
+                pass
+
         v_after = len(mesh.vertices)
         f_after = len(mesh.faces)
         red_pct = round(100.0 * (1.0 - (f_after / max(1, f_before))), 2)

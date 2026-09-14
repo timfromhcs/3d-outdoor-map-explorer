@@ -171,6 +171,15 @@ def cmd_process_all(args, config: PipelineConfig):
         status_text = "PASSED (Gates 1-9)" if r.all_gates_passed else "FAILED"
         print(f"  * {r.map_id}: {status_text} | SHA-256: {r.input_sha256[:10]}...")
 
+    # Generate / update central catalog.json and individual manifests
+    try:
+        from pipeline.export.manifest import ManifestGenerator
+        mg = ManifestGenerator()
+        out_base = getattr(args, "output", None) or config.output_base_dir
+        mg.generate_catalog(out_base)
+    except Exception as e:
+        print(f"Warning: Failed to regenerate catalog.json: {e}")
+
     return 0 if success_count == len(reports) else 1
 
 

@@ -89,36 +89,52 @@ class PlayerController {
     /**
      * Resets player position and view to current map's safe spawn point.
      */
-    respawn() {
+    respawn(mode = null) {
+        if (!mode) mode = (window.mapApp && window.mapApp.engine) ? window.mapApp.engine.currentMode : "POV";
         this.position.set(this.spawnPoint.position[0], this.spawnPoint.position[1], this.spawnPoint.position[2]);
         this.velocity.set(0, 0, 0);
         this.grounded = false;
-        this.camera.position.set(this.position.x, this.position.y + this.eyeHeight, this.position.z);
-        if (this.spawnPoint.lookYaw !== undefined) {
-            this.camera.rotation.set(0, THREE.MathUtils.degToRad(this.spawnPoint.lookYaw), 0);
+        if (mode === "POV") {
+            this.camera.position.set(this.position.x, this.position.y + this.eyeHeight, this.position.z);
+            if (this.spawnPoint.lookYaw !== undefined) {
+                this.camera.rotation.set(0, THREE.MathUtils.degToRad(this.spawnPoint.lookYaw), 0);
+            }
         }
     }
 
     /**
      * Configures the safe spawn point and calibrates controller parameters to map extents.
      */
-    setSpawn(spawnData, mapExtents) {
+    setSpawn(spawnData, mapExtents, mode = null) {
         this.spawnPoint = spawnData;
 
         // Calibrate scale based on map vertical extent
-        const extentY = mapExtents ? mapExtents[1] : 0.4;
-        const scale = Math.max(0.4, Math.min(2.5, extentY / 0.35));
+        const extentY = mapExtents ? mapExtents[1] : 2.0;
 
-        this.height = 0.16 * scale;
-        this.eyeHeight = 0.14 * scale;
-        this.radius = 0.03 * scale;
-        this.stepHeight = 0.025 * scale;
-        this.baseWalkSpeed = 0.35 * scale;
-        this.baseSprintSpeed = 0.70 * scale;
-        this.jumpVelocity = 0.85 * Math.sqrt(scale);
-        this.gravity = 3.2 * scale;
+        if (extentY > 2.0) {
+            // Realistic outdoor metric world scale (1 unit = 1 meter)
+            this.height = 1.75;
+            this.eyeHeight = 1.65;
+            this.radius = 0.35;
+            this.stepHeight = 0.40;
+            this.baseWalkSpeed = 4.5;
+            this.baseSprintSpeed = 8.5;
+            this.jumpVelocity = 5.5;
+            this.gravity = 14.0;
+        } else {
+            // Miniature scale fallback
+            const scale = Math.max(0.4, Math.min(2.5, extentY / 0.35));
+            this.height = 0.16 * scale;
+            this.eyeHeight = 0.14 * scale;
+            this.radius = 0.03 * scale;
+            this.stepHeight = 0.025 * scale;
+            this.baseWalkSpeed = 0.35 * scale;
+            this.baseSprintSpeed = 0.70 * scale;
+            this.jumpVelocity = 0.85 * Math.sqrt(scale);
+            this.gravity = 3.2 * scale;
+        }
 
-        this.respawn();
+        this.respawn(mode);
     }
 
     update(delta) {

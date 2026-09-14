@@ -122,9 +122,9 @@ class ManifestGenerator:
         # Calculate eye position: placed 1.6m (or scaled height) above ground
         # For our scanned meshes, model height span is around 0.3 - 0.6 units.
         # Compute appropriate player clearance scaled to map scale:
-        model_extent_y = walk_mesh.extents[1] if hasattr(walk_mesh, "extents") else 1.0
-        # Clearance offset: minimum 0.15 or 15% of map height
-        spawn_y_offset = max(0.08, min(0.35, model_extent_y * 0.25))
+        model_extent_y = float(walk_mesh.extents[1]) if hasattr(walk_mesh, "extents") else 1.0
+        # Clearance offset: standing eye height (1.65m on metric world scale, scaled on miniature)
+        spawn_y_offset = 1.65 if model_extent_y > 2.0 else max(0.08, min(0.35, model_extent_y * 0.25))
 
         spawn_pos = [
             round(float(best_pt[0]), 4),

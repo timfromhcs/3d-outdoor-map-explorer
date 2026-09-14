@@ -9616,7 +9616,7 @@
 		'LineSegments': three.LineSegments.prototype.raycast,
 		'LineLoop': three.LineLoop.prototype.raycast,
 		'Points': three.Points.prototype.raycast,
-		'BatchedMesh': three.BatchedMesh.prototype.raycast,
+		'BatchedMesh': three.BatchedMesh ? three.BatchedMesh.prototype.raycast : null,
 	};
 
 	const _mesh = /* @__PURE__ */ new three.Mesh();

@@ -57,13 +57,15 @@ class HUD {
             }
         };
 
+        this.btnMode.textContent = this.engine.currentMode === 'POV' ? 'Orbit Mode [V]' : 'Walk Mode [V]';
+
         // Camera Mode button
         this.btnMode.addEventListener('click', () => {
             const nextMode = this.engine.currentMode === 'POV' ? 'ORBIT' : 'POV';
             this.engine.setMode(nextMode);
-            this.btnMode.textContent = nextMode === 'POV' ? 'POV Mode' : 'Orbit Mode';
-            this.clickOverlay.style.display = nextMode === 'POV' ? 'flex' : 'none';
-            this.crosshair.style.display = nextMode === 'POV' && this.engine.player.isLocked ? 'block' : 'none';
+            this.btnMode.textContent = nextMode === 'POV' ? 'Orbit Mode [V]' : 'Walk Mode [V]';
+            this.clickOverlay.style.display = (nextMode === 'POV' && !this.engine.player.isLocked) ? 'flex' : 'none';
+            this.crosshair.style.display = (nextMode === 'POV' && this.engine.player.isLocked) ? 'block' : 'none';
         });
 
         // Developer panel toggle
@@ -146,16 +148,18 @@ class HUD {
         const player = this.engine.player;
         const pos = player.position;
 
-        // Position
-        this.telemetryPos.textContent = `${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.z.toFixed(2)}`;
-
-        // Grounded state
-        this.telemetryGround.textContent = player.grounded ? "GROUNDED" : "AIRBORNE";
-        this.telemetryGround.style.color = player.grounded ? "#2ea043" : "#f0883e";
-
-        // Speed
-        const horizontalSpeed = Math.sqrt(player.velocity.x ** 2 + player.velocity.z ** 2);
-        this.telemetrySpeed.textContent = `${player.movementState} (${horizontalSpeed.toFixed(2)} m/s)`;
+        if (this.engine.currentMode === "ORBIT") {
+            this.telemetryPos.textContent = `${pos.x.toFixed(1)}, ${pos.y.toFixed(1)}, ${pos.z.toFixed(1)}`;
+            this.telemetryGround.textContent = "ORBIT CAM";
+            this.telemetryGround.style.color = "#58a6ff";
+            this.telemetrySpeed.textContent = "AERIAL OVERVIEW";
+        } else {
+            this.telemetryPos.textContent = `${pos.x.toFixed(2)}, ${pos.y.toFixed(2)}, ${pos.z.toFixed(2)}`;
+            this.telemetryGround.textContent = player.grounded ? "GROUNDED" : "AIRBORNE";
+            this.telemetryGround.style.color = player.grounded ? "#2ea043" : "#f0883e";
+            const horizontalSpeed = Math.sqrt(player.velocity.x ** 2 + player.velocity.z ** 2);
+            this.telemetrySpeed.textContent = `${player.movementState} (${horizontalSpeed.toFixed(2)} m/s)`;
+        }
 
         // Compass heading
         const yawDeg = ((THREE.MathUtils.radToDeg(this.engine.camera.rotation.y) % 360) + 360) % 360;

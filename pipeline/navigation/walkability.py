@@ -201,9 +201,12 @@ class WalkabilityAnalyzer:
         for idx, pt in enumerate(nodes_xyz):
             G.add_node(int(idx), pos=[round(float(x), 4) for x in pt])
 
-        # Connect nearby nodes using KDTree
+        # Connect nearby nodes using KDTree with adaptive radius based on scale
         tree = cKDTree(nodes_xyz)
-        radius = self.config.nav_graph_connect_radius
+        extents = walkable_mesh.extents
+        diag = float(np.linalg.norm(extents))
+        radius = max(self.config.nav_graph_connect_radius, diag * 0.06)
+        max_step = max(0.08, radius * 0.45)
         pairs = tree.query_pairs(r=radius)
 
         for i, j in pairs:
@@ -211,8 +214,8 @@ class WalkabilityAnalyzer:
             p2 = nodes_xyz[j]
             dist = float(np.linalg.norm(p1 - p2))
             height_diff = abs(float(p1[1] - p2[1]))
-            # Only connect if height step is reasonable (e.g. not a vertical cliff edge)
-            if height_diff < 0.05:
+            # Only connect if height step is reasonable (not a vertical cliff or wall)
+            if height_diff < max_step:
                 G.add_edge(int(i), int(j), weight=round(dist, 4))
 
         # Analyze graph connectivity

@@ -2,69 +2,69 @@
   "map_id": "map3",
   "method": "simplified_static_mesh_and_convex_hulls",
   "collision_source": "cleaned_map_mesh",
-  "triangle_count": 3000,
-  "vertex_count": 1667,
+  "triangle_count": 2999,
+  "vertex_count": 1615,
   "reduction_percentage": 97.69,
   "bounds": [
     [
-      -0.7413,
-      -0.3895,
-      0.3496
+      -16.8401,
+      0.0126,
+      -14.6488
     ],
     [
-      0.5889,
-      0.1665,
-      1.4274
+      16.9217,
+      8.6022,
+      14.2255
     ]
   ],
   "extents": [
-    1.3302,
-    0.556,
-    1.0778
+    33.7618,
+    8.5896,
+    28.8743
   ],
   "convex_hulls_count": 2,
   "hulls_info": [
     {
       "hull_id": 0,
-      "vertex_count": 143,
-      "face_count": 282,
+      "vertex_count": 144,
+      "face_count": 284,
       "centroid": [
-        -0.0759,
-        -0.076,
-        0.9339
+        0.1168,
+        4.4746,
+        -0.2718
       ],
       "bounds": [
         [
-          -0.7413,
-          -0.3895,
-          0.3496
+          -16.8401,
+          0.0126,
+          -14.6488
         ],
         [
-          0.5889,
-          0.1665,
-          1.4274
+          16.9217,
+          8.6022,
+          14.2255
         ]
       ]
     },
     {
       "hull_id": 1,
-      "vertex_count": 22,
-      "face_count": 40,
+      "vertex_count": 20,
+      "face_count": 36,
       "centroid": [
-        -0.3198,
-        0.1266,
-        0.49
+        -4.7136,
+        5.692,
+        12.6054
       ],
       "bounds": [
         [
-          -0.3475,
-          0.1126,
-          0.4362
+          -5.2582,
+          4.7123,
+          11.324
         ],
         [
-          -0.2838,
-          0.1393,
-          0.5555
+          -4.2187,
+          6.6121,
+          13.6902
         ]
       ]
     }

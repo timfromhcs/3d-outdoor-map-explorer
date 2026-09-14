@@ -2,47 +2,47 @@
   "map_id": "map2",
   "method": "simplified_static_mesh_and_convex_hulls",
   "collision_source": "cleaned_map_mesh",
-  "triangle_count": 5880,
-  "vertex_count": 3152,
-  "reduction_percentage": 97.69,
+  "triangle_count": 5100,
+  "vertex_count": 2754,
+  "reduction_percentage": 97.99,
   "bounds": [
     [
-      -0.3056,
-      -0.1355,
-      0.2777
+      -14.2639,
+      0.2207,
+      -7.1674
     ],
     [
-      0.1927,
-      0.0779,
-      1.4573
+      16.5211,
+      4.3717,
+      5.7496
     ]
   ],
   "extents": [
-    0.4983,
-    0.2134,
-    1.1795
+    30.785,
+    4.151,
+    12.917
   ],
   "convex_hulls_count": 1,
   "hulls_info": [
     {
       "hull_id": 0,
-      "vertex_count": 79,
-      "face_count": 154,
+      "vertex_count": 87,
+      "face_count": 170,
       "centroid": [
-        -0.0502,
-        0.0081,
-        0.9121
+        1.0022,
+        2.4834,
+        -0.8104
       ],
       "bounds": [
         [
-          -0.3056,
-          -0.1355,
-          0.2777
+          -14.2639,
+          0.2207,
+          -7.1674
         ],
         [
-          0.1927,
-          0.0779,
-          1.4573
+          16.5211,
+          4.3717,
+          5.7496
         ]
       ]
     }

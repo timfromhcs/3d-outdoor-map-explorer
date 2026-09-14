@@ -93,8 +93,8 @@ async function runPOVTests() {
             console.log(`[POV Test] Captured overview.png`);
 
             // 2. Enter POV Mode
-            console.log(`[POV Test] Engaging POV mode & clicking canvas...`);
-            await page.click('#click-to-play-overlay');
+            console.log(`[POV Test] Engaging POV mode...`);
+            await page.click('#btn-toggle-mode');
             await page.waitForTimeout(500);
 
             const povShot = path.join(mapVisualDir, 'pov.png');

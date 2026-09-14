@@ -1,22 +1,22 @@
 {
   "map_id": "map2",
   "format_version": "1.0",
-  "created_at": "2026-09-14T20:01:26.162394+00:00",
+  "created_at": "2026-09-14T21:05:00.941065+00:00",
   "bounds": {
     "min": [
-      -0.36579546332359314,
-      -0.20514355599880219,
-      0.2632717490196228
+      -16.67129256286532,
+      0.0,
+      -7.703049073115187
     ],
     "max": [
-      0.2226712554693222,
-      0.07891497761011124,
-      1.5770426988601685
+      16.671292562865325,
+      4.9306689123900185,
+      7.703049073115187
     ],
     "extents": [
-      0.5884667187929153,
-      0.2840585336089134,
-      1.3137709498405457
+      33.34258512573065,
+      4.9306689123900185,
+      15.406098146230374
     ]
   },
   "layers": {
@@ -137,32 +137,32 @@
       "map_id": "map2",
       "quality_profile": "medium",
       "vertices_before": 129531,
-      "vertices_after": 58736,
+      "vertices_after": 58610,
       "faces_before": 254278,
       "faces_after": 114424,
       "face_reduction_percentage": 55.0,
-      "file_size_before_bytes": 5124860,
-      "file_size_after_bytes": 2313844,
-      "file_size_reduction_percentage": 54.85,
+      "file_size_before_bytes": 5124840,
+      "file_size_after_bytes": 2311824,
+      "file_size_reduction_percentage": 54.89,
       "lods": [
         {
           "level": 0,
           "faces": 114424,
-          "vertices": 58736,
+          "vertices": 58610,
           "reduction_percentage": 0.0,
           "output_path": "output\\map2\\optimized\\render.glb"
         },
         {
           "level": 1,
           "faces": 57212,
-          "vertices": 29643,
+          "vertices": 29544,
           "reduction_percentage": 50.0,
           "output_path": "output\\map2\\optimized\\render_lod1.glb"
         },
         {
           "level": 2,
-          "faces": 28605,
-          "vertices": 15034,
+          "faces": 28606,
+          "vertices": 14956,
           "reduction_percentage": 75.0,
           "output_path": "output\\map2\\optimized\\render_lod2.glb"
         }
@@ -196,12 +196,12 @@
             "trade name"
           ],
           "mapped_categories": [
-            "obstacles_props",
-            "steep_terrain",
-            "vegetation",
             "walls_and_structures",
-            "buildings",
-            "ground_terrain"
+            "vegetation",
+            "steep_terrain",
+            "ground_terrain",
+            "obstacles_props",
+            "buildings"
           ]
         },
         {
@@ -222,11 +222,11 @@
             "ball"
           ],
           "mapped_categories": [
-            "obstacles_props",
+            "walls_and_structures",
+            "vegetation",
             "walkable_surface",
             "steep_terrain",
-            "vegetation",
-            "walls_and_structures",
+            "obstacles_props",
             "buildings"
           ]
         }
@@ -234,9 +234,9 @@
       "classes": {
         "walkable_surface": {
           "name": "walkable_surface",
-          "face_count": 246,
-          "face_ratio": 0.001,
-          "surface_area": 0.0002,
+          "face_count": 95005,
+          "face_ratio": 0.3736,
+          "surface_area": 167.0805,
           "color_rgba": [
             0,
             229,
@@ -246,9 +246,9 @@
         },
         "ground_terrain": {
           "name": "ground_terrain",
-          "face_count": 161,
-          "face_ratio": 0.0006,
-          "surface_area": 0.0002,
+          "face_count": 6402,
+          "face_ratio": 0.0252,
+          "surface_area": 4.4011,
           "color_rgba": [
             76,
             175,
@@ -258,9 +258,9 @@
         },
         "walls_and_structures": {
           "name": "walls_and_structures",
-          "face_count": 12932,
-          "face_ratio": 0.0509,
-          "surface_area": 0.011,
+          "face_count": 5383,
+          "face_ratio": 0.0212,
+          "surface_area": 1.953,
           "color_rgba": [
             188,
             122,
@@ -270,9 +270,9 @@
         },
         "buildings": {
           "name": "buildings",
-          "face_count": 4988,
-          "face_ratio": 0.0196,
-          "surface_area": 0.0028,
+          "face_count": 3246,
+          "face_ratio": 0.0128,
+          "surface_area": 1.3322,
           "color_rgba": [
             63,
             81,
@@ -282,9 +282,9 @@
         },
         "roofs_elevated": {
           "name": "roofs_elevated",
-          "face_count": 878,
-          "face_ratio": 0.0035,
-          "surface_area": 0.0005,
+          "face_count": 61085,
+          "face_ratio": 0.2402,
+          "surface_area": 56.2369,
           "color_rgba": [
             220,
             53,
@@ -294,9 +294,9 @@
         },
         "steep_terrain": {
           "name": "steep_terrain",
-          "face_count": 4007,
-          "face_ratio": 0.0158,
-          "surface_area": 0.003,
+          "face_count": 27959,
+          "face_ratio": 0.11,
+          "surface_area": 16.135,
           "color_rgba": [
             158,
             158,
@@ -306,9 +306,9 @@
         },
         "obstacles_props": {
           "name": "obstacles_props",
-          "face_count": 88819,
-          "face_ratio": 0.3493,
-          "surface_area": 0.1221,
+          "face_count": 52334,
+          "face_ratio": 0.2058,
+          "surface_area": 31.3181,
           "color_rgba": [
             255,
             152,
@@ -318,9 +318,9 @@
         },
         "other": {
           "name": "other",
-          "face_count": 142247,
-          "face_ratio": 0.5594,
-          "surface_area": 0.3073,
+          "face_count": 2864,
+          "face_ratio": 0.0113,
+          "surface_area": 0.9557,
           "color_rgba": [
             100,
             100,
@@ -330,8 +330,8 @@
         }
       },
       "ground_elevation_range": [
-        -0.2046,
-        -0.0298
+        0.0006,
+        1.1983
       ],
       "output_segmented_glb": "output\\map2\\segmentation\\segmented.glb"
     },
@@ -339,47 +339,47 @@
       "map_id": "map2",
       "method": "simplified_static_mesh_and_convex_hulls",
       "collision_source": "cleaned_map_mesh",
-      "triangle_count": 5880,
-      "vertex_count": 3152,
-      "reduction_percentage": 97.69,
+      "triangle_count": 5100,
+      "vertex_count": 2754,
+      "reduction_percentage": 97.99,
       "bounds": [
         [
-          -0.3056,
-          -0.1355,
-          0.2777
+          -14.2639,
+          0.2207,
+          -7.1674
         ],
         [
-          0.1927,
-          0.0779,
-          1.4573
+          16.5211,
+          4.3717,
+          5.7496
         ]
       ],
       "extents": [
-        0.4983,
-        0.2134,
-        1.1795
+        30.785,
+        4.151,
+        12.917
       ],
       "convex_hulls_count": 1,
       "hulls_info": [
         {
           "hull_id": 0,
-          "vertex_count": 79,
-          "face_count": 154,
+          "vertex_count": 87,
+          "face_count": 170,
           "centroid": [
-            -0.0502,
-            0.0081,
-            0.9121
+            1.0022,
+            2.4834,
+            -0.8104
           ],
           "bounds": [
             [
-              -0.3056,
-              -0.1355,
-              0.2777
+              -14.2639,
+              0.2207,
+              -7.1674
             ],
             [
-              0.1927,
-              0.0779,
-              1.4573
+              16.5211,
+              4.3717,
+              5.7496
             ]
           ]
         }
@@ -388,20 +388,20 @@
     },
     "walkability": {
       "map_id": "map2",
-      "walkable_faces_count": 118,
-      "walkable_area": 0.0001,
-      "walkable_ratio": 0.0002,
+      "walkable_faces_count": 93163,
+      "walkable_area": 165.1321,
+      "walkable_ratio": 0.591,
       "slope_threshold_deg": 38.0,
-      "elevation_min": -0.1287,
-      "elevation_max": 0.048,
+      "elevation_min": 0.0,
+      "elevation_max": 2.9563,
       "nav_graph": {
-        "total_nodes": 115,
-        "total_edges": 3107,
-        "connected_components": 3,
-        "largest_component_nodes": 74,
+        "total_nodes": 505,
+        "total_edges": 6914,
+        "connected_components": 2,
+        "largest_component_nodes": 503,
         "sample_path_found": true,
-        "sample_path_length": 0.0662,
-        "sample_path_nodes": 2
+        "sample_path_length": 33.2616,
+        "sample_path_nodes": 22
       },
       "output_walkable_glb": "output\\map2\\navigation\\walkable.glb",
       "output_nav_graph_json": "output\\map2\\navigation\\nav_graph.json",

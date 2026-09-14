@@ -7,15 +7,20 @@ class WorldEngine {
     constructor(container) {
         this.container = container;
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x0a0e14);
+        // Atmospheric daylight sky and subtle haze
+        this.scene.background = new THREE.Color(0x8cb8e6);
+        this.scene.fog = new THREE.FogExp2(0xa5cbf0, 0.008);
 
-        this.camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.01, 1000);
+        this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.05, 2000);
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.outputEncoding = THREE.sRGBEncoding;
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 0.95;
         this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.container.appendChild(this.renderer.domElement);
 
         this.collisionSystem = new CollisionSystem();
@@ -23,10 +28,11 @@ class WorldEngine {
 
         this.orbitControls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.orbitControls.enableDamping = true;
-        this.orbitControls.dampingFactor = 0.05;
-        this.orbitControls.enabled = false; // Starts in POV mode
+        this.orbitControls.dampingFactor = 0.08;
+        this.orbitControls.maxPolarAngle = Math.PI / 2 + 0.05; // Prevent camera going below ground
+        this.orbitControls.enabled = true; // Starts in Orbit Overview mode
 
-        this.currentMode = "POV"; // "POV" or "ORBIT"
+        this.currentMode = "ORBIT"; // "ORBIT" or "POV"
         this.currentMapManifest = null;
 
         // Visual Layers
@@ -37,6 +43,7 @@ class WorldEngine {
             segmentation: null,
             navGraph: null,
             bbox: null,
+            grid: null,
             playerHelper: null
         };
 
@@ -55,31 +62,43 @@ class WorldEngine {
         this.loader = new THREE.GLTFLoader();
 
         this._setupLighting();
+        this._setupGroundGrid();
         this._setupPlayerHelper();
         window.addEventListener('resize', () => this.onResize());
     }
 
     _setupLighting() {
-        const ambient = new THREE.AmbientLight(0xffffff, 0.65);
+        // Multi-angle realistic outdoor daylight lighting calibrated for vertex colors
+        const ambient = new THREE.AmbientLight(0xffffff, 0.35);
         this.scene.add(ambient);
 
-        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x333b48, 0.45);
-        hemiLight.position.set(0, 20, 0);
+        // Sky & ground hemisphere bounce
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x556677, 0.45);
+        hemiLight.position.set(0, 50, 0);
         this.scene.add(hemiLight);
 
-        const sun = new THREE.DirectionalLight(0xffffff, 0.85);
-        sun.position.set(5, 12, 7);
+        // Primary warm sun
+        const sun = new THREE.DirectionalLight(0xfff5e6, 0.75);
+        sun.position.set(25, 45, 30);
         sun.castShadow = true;
         this.scene.add(sun);
 
-        const fill = new THREE.DirectionalLight(0x58a6ff, 0.25);
-        fill.position.set(-5, -5, -5);
-        this.scene.add(fill);
+        // Secondary fill / ground bounce light
+        const backSun = new THREE.DirectionalLight(0xddeeff, 0.25);
+        backSun.position.set(-25, 20, -25);
+        this.scene.add(backSun);
+    }
+
+    _setupGroundGrid() {
+        const grid = new THREE.GridHelper(80, 40, 0x5588bb, 0x99bbee);
+        grid.position.y = -0.01;
+        this.layers.grid = grid;
+        this.scene.add(grid);
     }
 
     _setupPlayerHelper() {
-        const geom = new THREE.CylinderGeometry(0.03, 0.03, 0.16, 8);
-        const mat = new THREE.MeshBasicMaterial({ color: 0x00e5ff, wireframe: true });
+        const geom = new THREE.CylinderGeometry(0.35, 0.35, 1.7, 12);
+        const mat = new THREE.MeshStandardMaterial({ color: 0x00e5ff, wireframe: true });
         this.layers.playerHelper = new THREE.Mesh(geom, mat);
         this.layers.playerHelper.visible = false;
         this.scene.add(this.layers.playerHelper);
@@ -98,18 +117,32 @@ class WorldEngine {
         this.currentMode = mode;
         if (mode === "POV") {
             this.orbitControls.enabled = false;
+            this.player.respawn("POV");
             this.player.controls.lock();
             this.layers.playerHelper.visible = false;
         } else {
             this.player.controls.unlock();
             this.orbitControls.enabled = true;
-            // Position orbit camera above current player position
-            this.orbitControls.target.copy(this.player.position);
-            this.camera.position.set(
-                this.player.position.x + 1.2,
-                this.player.position.y + 1.2,
-                this.player.position.z + 1.2
-            );
+            if (this.layers.render) {
+                const box = new THREE.Box3().setFromObject(this.layers.render);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.z, 15);
+
+                this.orbitControls.target.copy(center);
+                this.camera.position.set(
+                    center.x + maxDim * 0.85,
+                    center.y + maxDim * 0.75,
+                    center.z + maxDim * 0.85
+                );
+            } else {
+                this.orbitControls.target.copy(this.player.position);
+                this.camera.position.set(
+                    this.player.position.x + 10,
+                    this.player.position.y + 8,
+                    this.player.position.z + 10
+                );
+            }
             this.orbitControls.update();
             this.layers.playerHelper.visible = this.layerVisibility.playerHelper;
         }
@@ -185,6 +218,33 @@ class WorldEngine {
             this.scene.add(segScene);
         }
 
+        // Configure high visual fidelity, double-sided rendering & smooth normals
+        [renderScene, colScene, walkScene, segScene].forEach(scene => {
+            if (!scene) return;
+            scene.traverse(child => {
+                if (child.isMesh) {
+                    if (child.material) {
+                        if (Array.isArray(child.material)) {
+                            child.material.forEach(m => {
+                                m.side = THREE.DoubleSide;
+                                m.roughness = 0.65;
+                                m.metalness = 0.05;
+                                m.needsUpdate = true;
+                            });
+                        } else {
+                            child.material.side = THREE.DoubleSide;
+                            child.material.roughness = 0.65;
+                            child.material.metalness = 0.05;
+                            child.material.needsUpdate = true;
+                        }
+                    }
+                    if (child.geometry && !child.geometry.attributes.normal) {
+                        child.geometry.computeVertexNormals();
+                    }
+                }
+            });
+        });
+
         // Bounding Box Helper
         const mainMesh = renderScene || colScene || walkScene;
         if (mainMesh) {
@@ -192,6 +252,21 @@ class WorldEngine {
             this.layers.bbox = new THREE.Box3Helper(box, 0x58a6ff);
             this.layers.bbox.visible = this.layerVisibility.bbox;
             this.scene.add(this.layers.bbox);
+
+            // Auto-frame Orbit camera to center of map
+            if (this.currentMode === 'ORBIT') {
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.z, 15);
+
+                this.orbitControls.target.copy(center);
+                this.camera.position.set(
+                    center.x + maxDim * 0.85,
+                    center.y + maxDim * 0.75,
+                    center.z + maxDim * 0.85
+                );
+                this.orbitControls.update();
+            }
         }
 
         // Load Nav Graph if available
@@ -207,9 +282,9 @@ class WorldEngine {
         // Position player at safe spawn point
         const spawn = (manifest.spawn_points && manifest.spawn_points.length > 0)
             ? manifest.spawn_points[0]
-            : { position: [0, 0.5, 0], lookYaw: 0 };
+            : { position: [0, 1.7, 0], lookYaw: 0 };
 
-        this.player.setSpawn(spawn, manifest.bounds.extents);
+        this.player.setSpawn(spawn, manifest.bounds.extents, this.currentMode);
         this.applyWireframe(this.layerVisibility.wireframe);
 
         return true;

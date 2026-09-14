@@ -17,6 +17,8 @@ class CleanupConfig:
     remove_camera_gizmos: bool = True
     rebuild_normals: bool = True
     unify_winding: bool = True
+    align_ground_plane: bool = True
+    world_scale: float = 25.0
 
 
 @dataclass
@@ -61,7 +63,7 @@ class ViewerConfig:
 class PipelineConfig:
     version: str = "1.0.0"
     pipeline_name: str = "Outdoor 3D Map Headless Pipeline"
-    input_search_dirs: List[str] = field(default_factory=lambda: ["Maps", "input", "."])
+    input_search_dirs: List[str] = field(default_factory=lambda: ["Maps"])
     output_base_dir: str = "output"
     reports_dir: str = "reports"
     default_quality: str = "medium"
