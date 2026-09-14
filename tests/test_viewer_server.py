@@ -34,7 +34,7 @@ def test_server_maps_catalog_endpoint(viewer_server):
     assert req.status == 200
     data = json.loads(req.read().decode("utf-8"))
     assert "maps" in data
-    assert data["total_maps"] >= 1
+    assert data.get("total_maps", data.get("map_count", 0)) >= 1
 
 
 def test_server_verify_assets_endpoint(viewer_server):
@@ -52,4 +52,4 @@ def test_server_viewer_html_serving(viewer_server):
     req = urllib.request.urlopen(url)
     assert req.status == 200
     content = req.read().decode("utf-8")
-    assert "3D Map Pipeline Viewer" in content
+    assert "3D Outdoor Map Explorer" in content

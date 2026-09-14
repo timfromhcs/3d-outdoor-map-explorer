@@ -96,6 +96,8 @@ class MapViewerRequestHandler(http.server.SimpleHTTPRequestHandler):
         if os.path.exists(catalog_path):
             with open(catalog_path, "r", encoding="utf-8") as fp:
                 catalog = json.load(fp)
+            if "total_maps" not in catalog and "map_count" in catalog:
+                catalog["total_maps"] = catalog["map_count"]
             self._send_json(catalog)
             return
 
