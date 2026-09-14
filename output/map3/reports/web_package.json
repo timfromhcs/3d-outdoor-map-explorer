@@ -1,0 +1,33 @@
+{
+  "map_id": "map3",
+  "total_original_bytes": 1255080,
+  "total_web_bytes": 1255212,
+  "overall_reduction_pct": -0.01,
+  "assets": [
+    {
+      "asset_name": "render.glb",
+      "original_size_bytes": 1187844,
+      "web_size_bytes": 1187888,
+      "reduction_percentage": -0.0,
+      "triangles": 58454,
+      "vertices": 30339
+    },
+    {
+      "asset_name": "collision.glb",
+      "original_size_bytes": 63632,
+      "web_size_bytes": 63676,
+      "reduction_percentage": -0.07,
+      "triangles": 3000,
+      "vertices": 1667
+    },
+    {
+      "asset_name": "walkable.glb",
+      "original_size_bytes": 3604,
+      "web_size_bytes": 3648,
+      "reduction_percentage": -1.22,
+      "triangles": 100,
+      "vertices": 91
+    }
+  ],
+  "output_dir": "output\\map3\\web"
+}

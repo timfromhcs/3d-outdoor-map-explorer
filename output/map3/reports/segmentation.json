@@ -1,0 +1,143 @@
+{
+  "map_id": "map3",
+  "method": "AI_Vision_Augmented_Geometric_Segmentation",
+  "is_heuristic": false,
+  "ai_status": "Hugging Face Inference API authenticated (nvidia/segformer-b0-finetuned-ade-512-512)",
+  "ai_model": "nvidia/segformer-b0-finetuned-ade-512-512",
+  "ai_detections": [
+    {
+      "image_file": "image (1).png",
+      "detected_labels": [
+        "wall",
+        "plant",
+        "flower"
+      ],
+      "mapped_categories": [
+        "vegetation",
+        "walls_and_structures"
+      ]
+    },
+    {
+      "image_file": "image.png",
+      "detected_labels": [
+        "wall",
+        "building",
+        "sky",
+        "tree",
+        "person",
+        "plant",
+        "water",
+        "flower",
+        "flag"
+      ],
+      "mapped_categories": [
+        "vegetation",
+        "walls_and_structures",
+        "buildings"
+      ]
+    }
+  ],
+  "classes": {
+    "walkable_surface": {
+      "name": "walkable_surface",
+      "face_count": 268,
+      "face_ratio": 0.0021,
+      "surface_area": 0.0023,
+      "color_rgba": [
+        0,
+        229,
+        255,
+        255
+      ]
+    },
+    "ground_terrain": {
+      "name": "ground_terrain",
+      "face_count": 103,
+      "face_ratio": 0.0008,
+      "surface_area": 0.0008,
+      "color_rgba": [
+        76,
+        175,
+        80,
+        255
+      ]
+    },
+    "walls_and_structures": {
+      "name": "walls_and_structures",
+      "face_count": 10841,
+      "face_ratio": 0.0835,
+      "surface_area": 0.0854,
+      "color_rgba": [
+        188,
+        122,
+        34,
+        255
+      ]
+    },
+    "buildings": {
+      "name": "buildings",
+      "face_count": 511,
+      "face_ratio": 0.0039,
+      "surface_area": 0.0018,
+      "color_rgba": [
+        63,
+        81,
+        181,
+        255
+      ]
+    },
+    "roofs_elevated": {
+      "name": "roofs_elevated",
+      "face_count": 116,
+      "face_ratio": 0.0009,
+      "surface_area": 0.0005,
+      "color_rgba": [
+        220,
+        53,
+        69,
+        255
+      ]
+    },
+    "steep_terrain": {
+      "name": "steep_terrain",
+      "face_count": 2185,
+      "face_ratio": 0.0168,
+      "surface_area": 0.0153,
+      "color_rgba": [
+        158,
+        158,
+        158,
+        255
+      ]
+    },
+    "obstacles_props": {
+      "name": "obstacles_props",
+      "face_count": 45378,
+      "face_ratio": 0.3493,
+      "surface_area": 0.3474,
+      "color_rgba": [
+        255,
+        152,
+        0,
+        255
+      ]
+    },
+    "other": {
+      "name": "other",
+      "face_count": 70500,
+      "face_ratio": 0.5427,
+      "surface_area": 0.6579,
+      "color_rgba": [
+        100,
+        100,
+        100,
+        255
+      ]
+    }
+  },
+  "ground_elevation_range": [
+    -0.3904,
+    -0.0334
+  ],
+  "output_segmented_glb": "output\\map3\\segmentation\\segmented.glb"
+}

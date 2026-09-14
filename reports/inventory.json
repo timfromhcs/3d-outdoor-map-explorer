@@ -1,0 +1,122 @@
+{
+  "total_maps": 3,
+  "maps": [
+    {
+      "map_id": "map1",
+      "source_filename": "glbscene_All_camTrue_meshTrue (2).glb",
+      "source_path": "C:\\Users\\hcsme\\Desktop\\mapbuilder\\Maps\\map1\\glbscene_All_camTrue_meshTrue (2).glb",
+      "file_size_bytes": 6369524,
+      "file_size_mb": 6.07,
+      "sha256": "896bb2988f0ac2c51f5423487be6de6090e1248e6bc15136dfa254383c23da6d",
+      "format": "GLB",
+      "vertex_count": 160485,
+      "triangle_count": 316620,
+      "material_count": 0,
+      "texture_count": 0,
+      "dimensions": [
+        0.5482,
+        0.3,
+        1.2547
+      ],
+      "bounding_box": [
+        [
+          -0.2786530554294586,
+          -0.17631036043167114,
+          4.8432473704451695e-05
+        ],
+        [
+          0.26954346895217896,
+          0.12368077784776688,
+          1.2547043561935425
+        ]
+      ],
+      "component_count": 2,
+      "associated_files": [
+        "gaussians (2).ply",
+        "image (4).png",
+        "image (5).png"
+      ],
+      "camera_gizmos_detected": true,
+      "validation_status": "PENDING",
+      "notes": []
+    },
+    {
+      "map_id": "map2",
+      "source_filename": "glbscene_All_camTrue_meshTrue (1).glb",
+      "source_path": "C:\\Users\\hcsme\\Desktop\\mapbuilder\\Maps\\map2\\glbscene_All_camTrue_meshTrue (1).glb",
+      "file_size_bytes": 5129128,
+      "file_size_mb": 4.89,
+      "sha256": "c6ed281c1a217c00af084b16c4f69f7d982f40ad282247326715154125d859fc",
+      "format": "GLB",
+      "vertex_count": 129616,
+      "triangle_count": 254410,
+      "material_count": 0,
+      "texture_count": 0,
+      "dimensions": [
+        0.5885,
+        0.2841,
+        1.5773
+      ],
+      "bounding_box": [
+        [
+          -0.36579546332359314,
+          -0.20514355599880219,
+          -0.00020812636648770422
+        ],
+        [
+          0.2226712554693222,
+          0.07891497761011124,
+          1.5770426988601685
+        ]
+      ],
+      "component_count": 2,
+      "associated_files": [
+        "gaussians (1).ply",
+        "image (2).png",
+        "image (3).png"
+      ],
+      "camera_gizmos_detected": true,
+      "validation_status": "PENDING",
+      "notes": []
+    },
+    {
+      "map_id": "map3",
+      "source_filename": "glbscene_All_camTrue_meshTrue.glb",
+      "source_path": "C:\\Users\\hcsme\\Desktop\\mapbuilder\\Maps\\map3\\glbscene_All_camTrue_meshTrue.glb",
+      "file_size_bytes": 2645588,
+      "file_size_mb": 2.52,
+      "sha256": "f1a546cacc83c8595fe3eef81d4472d7a6a09964ac2b13973ea6b6b26bb7db4a",
+      "format": "GLB",
+      "vertex_count": 67340,
+      "triangle_count": 130484,
+      "material_count": 0,
+      "texture_count": 0,
+      "dimensions": [
+        1.3342,
+        0.5586,
+        1.4307
+      ],
+      "bounding_box": [
+        [
+          -0.7446178197860718,
+          -0.392079621553421,
+          0.0017620401922613382
+        ],
+        [
+          0.589577317237854,
+          0.16652911901474,
+          1.4324913024902344
+        ]
+      ],
+      "component_count": 2,
+      "associated_files": [
+        "gaussians.ply",
+        "image (1).png",
+        "image.png"
+      ],
+      "camera_gizmos_detected": true,
+      "validation_status": "PENDING",
+      "notes": []
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "map_id": "map3",
+  "source_file": "C:\\Users\\hcsme\\Desktop\\mapbuilder\\Maps\\map3\\glbscene_All_camTrue_meshTrue.glb",
+  "overall_status": "WARN",
+  "checks": [
+    {
+      "name": "glb_binary_header",
+      "status": "PASS",
+      "message": "Valid GLB 2.0 binary header, size: 2645588 bytes",
+      "details": null
+    },
+    {
+      "name": "gltf_structure",
+      "status": "PASS",
+      "message": "Valid glTF JSON structure with 3 nodes and 2 meshes",
+      "details": null
+    },
+    {
+      "name": "buffer_integrity",
+      "status": "PASS",
+      "message": "1 buffers validated",
+      "details": null
+    },
+    {
+      "name": "node_mesh_references",
+      "status": "PASS",
+      "message": "3 nodes reference valid mesh and child indices",
+      "details": null
+    },
+    {
+      "name": "camera_gizmos",
+      "status": "PASS",
+      "message": "No camera gizmo nodes detected",
+      "details": null
+    },
+    {
+      "name": "materials_textures",
+      "status": "PASS",
+      "message": "0 materials, 0 textures defined",
+      "details": null
+    },
+    {
+      "name": "geometry_finite",
+      "status": "PASS",
+      "message": "All vertices and normals contain finite numerical coordinates (no NaN/Inf)",
+      "details": null
+    },
+    {
+      "name": "degenerate_triangles",
+      "status": "WARN",
+      "message": "Found 8 degenerate/zero-area triangles (cleanup candidate)",
+      "details": null
+    },
+    {
+      "name": "manifold_edges",
+      "status": "WARN",
+      "message": "Found 18 non-manifold edges (typical in AI reconstructed meshes, requires cleanup)",
+      "details": null
+    },
+    {
+      "name": "component_connectivity",
+      "status": "WARN",
+      "message": "39 disconnected components detected (potential floating noise or multi-part structures)",
+      "details": null
+    },
+    {
+      "name": "bounding_box_scale",
+      "status": "PASS",
+      "message": "Bounding box scale is within standard realistic numeric range",
+      "details": null
+    }
+  ],
+  "summary": {
+    "total_vertices": 67340,
+    "total_faces": 130484,
+    "degenerate_faces": 8,
+    "nan_inf_vertices": 0,
+    "connected_components": 39,
+    "non_manifold_edges": 18,
+    "camera_nodes": 0,
+    "materials_count": 0,
+    "textures_count": 0
+  }
+}

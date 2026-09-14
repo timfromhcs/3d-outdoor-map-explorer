@@ -1,0 +1,51 @@
+{
+  "map_id": "map1",
+  "method": "simplified_static_mesh_and_convex_hulls",
+  "collision_source": "cleaned_map_mesh",
+  "triangle_count": 2999,
+  "vertex_count": 1591,
+  "reduction_percentage": 99.05,
+  "bounds": [
+    [
+      -0.2735,
+      -0.1716,
+      0.7351
+    ],
+    [
+      0.2691,
+      0.1234,
+      1.254
+    ]
+  ],
+  "extents": [
+    0.5425,
+    0.295,
+    0.5189
+  ],
+  "convex_hulls_count": 1,
+  "hulls_info": [
+    {
+      "hull_id": 0,
+      "vertex_count": 94,
+      "face_count": 184,
+      "centroid": [
+        -0.0021,
+        -0.0325,
+        1.0074
+      ],
+      "bounds": [
+        [
+          -0.2735,
+          -0.1716,
+          0.7351
+        ],
+        [
+          0.2691,
+          0.1234,
+          1.254
+        ]
+      ]
+    }
+  ],
+  "output_collision_path": "output\\map1\\collision\\collision.glb"
+}

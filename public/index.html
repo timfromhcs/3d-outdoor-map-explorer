@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Outdoor Map Explorer & POV Walker</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Core Three.js & Controls with local vendor paths and CDN fallbacks -->
+    <script src="/vendor/three.min.js"></script>
+    <script src="/vendor/OrbitControls.js"></script>
+    <script src="/vendor/PointerLockControls.js"></script>
+    <script src="/vendor/GLTFLoader.js"></script>
+    <script src="/vendor/three-mesh-bvh.umd.js"></script>
+</head>
+<body>
+    <!-- 3D Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- First-Person Reticle / Crosshair -->
+    <div id="crosshair"></div>
+
+    <!-- Initial Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div id="loading-msg">Initializing 3D World Engine...</div>
+    </div>
+
+    <!-- Top Navigation & Status Bar -->
+    <div id="top-hud" class="glass-panel">
+        <div class="hud-title">
+            <span class="map-badge">3D WORLD EXPLORER</span>
+            <span class="hud-map-name">Loading map...</span>
+        </div>
+        <div class="hud-actions">
+            <button id="btn-open-maps" class="btn">Maps [M]</button>
+            <button id="btn-toggle-mode" class="btn">POV Mode [V]</button>
+            <button id="btn-toggle-dev" class="btn">Dev Mode [Tab]</button>
+            <button id="btn-reset-spawn" class="btn">Spawn [R]</button>
+            <button id="btn-fullscreen" class="btn">Fullscreen</button>
+        </div>
+    </div>
+
+    <!-- Bottom Left: Player Telemetry -->
+    <div id="player-telemetry" class="glass-panel">
+        <div class="telemetry-row">
+            <span class="telemetry-label">Coordinates:</span>
+            <span id="tel-pos" class="telemetry-val">0.00, 0.00, 0.00</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="telemetry-label">State:</span>
+            <span id="tel-speed" class="telemetry-val">IDLE (0.00 m/s)</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="telemetry-label">Surface:</span>
+            <span id="tel-ground" class="telemetry-val" style="color:#2ea043;">GROUNDED</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="telemetry-label">Heading:</span>
+            <span id="tel-compass" class="telemetry-val">N (0°)</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="telemetry-label">Performance:</span>
+            <span id="tel-fps" class="telemetry-val">60 FPS</span>
+        </div>
+    </div>
+
+    <!-- Bottom Right: Real-time 2D Minimap -->
+    <div id="minimap-container" class="glass-panel">
+        <canvas id="minimap-canvas"></canvas>
+        <span class="minimap-label">TOP-DOWN MINIMAP</span>
+    </div>
+
+    <!-- Developer Inspection & Layer Control Panel -->
+    <div id="dev-panel" class="glass-panel">
+        <div class="dev-section-title">Visual & Physical Layers</div>
+        <div class="toggle-item">
+            <span><span class="dot" style="background:#58a6ff;"></span>Render Mesh</span>
+            <input type="checkbox" id="toggle-render" checked>
+        </div>
+        <div class="toggle-item">
+            <span><span class="dot" style="background:#f4511e;"></span>Collision Geometry</span>
+            <input type="checkbox" id="toggle-collision">
+        </div>
+        <div class="toggle-item">
+            <span><span class="dot" style="background:#00e5ff;"></span>Walkable Surface</span>
+            <input type="checkbox" id="toggle-walkable">
+        </div>
+        <div class="toggle-item">
+            <span><span class="dot" style="background:#4caf50;"></span>Semantic Segmentation</span>
+            <input type="checkbox" id="toggle-segmentation">
+        </div>
+        <div class="toggle-item">
+            <span><span class="dot" style="background:#00bcd4;"></span>Navigation Graph</span>
+            <input type="checkbox" id="toggle-navgraph">
+        </div>
+        <div class="toggle-item">
+            <span>Wireframe Mode</span>
+            <input type="checkbox" id="toggle-wireframe">
+        </div>
+        <div class="toggle-item">
+            <span>Bounding Box</span>
+            <input type="checkbox" id="toggle-bbox">
+        </div>
+        <div class="toggle-item">
+            <span>Player Collider</span>
+            <input type="checkbox" id="toggle-player-helper">
+        </div>
+
+        <div class="dev-section-title">Scene Statistics</div>
+        <div class="telemetry-row" style="font-size:11px; padding:2px 0;">
+            <span class="telemetry-label">Visible Triangles:</span>
+            <span id="stat-triangles" class="telemetry-val">-</span>
+        </div>
+        <div class="telemetry-row" style="font-size:11px; padding:2px 0;">
+            <span class="telemetry-label">Visible Vertices:</span>
+            <span id="stat-vertices" class="telemetry-val">-</span>
+        </div>
+        <div class="telemetry-row" style="font-size:11px; padding:2px 0;">
+            <span class="telemetry-label">Draw Calls:</span>
+            <span id="stat-calls" class="telemetry-val">-</span>
+        </div>
+    </div>
+
+    <!-- Pointer Lock Click-to-Play Overlay -->
+    <div id="click-to-play-overlay">
+        <div class="overlay-box">
+            <h1>ENTER FIRST-PERSON POV</h1>
+            <p>Click anywhere to engage mouse look and explore the reconstructed 3D map.</p>
+            <div class="keybinds-grid">
+                <div><span class="key-badge">W A S D</span> Walk</div>
+                <div><span class="key-badge">SHIFT</span> Sprint</div>
+                <div><span class="key-badge">SPACE</span> Jump</div>
+                <div><span class="key-badge">MOUSE</span> Look Around</div>
+                <div><span class="key-badge">V</span> Toggle Orbit / POV</div>
+                <div><span class="key-badge">TAB</span> Developer Mode</div>
+                <div><span class="key-badge">M</span> Select Map</div>
+                <div><span class="key-badge">R</span> Safe Spawn Reset</div>
+                <div><span class="key-badge">ESC</span> Unlock Cursor</div>
+            </div>
+            <button class="btn btn-primary" style="margin: 0 auto; padding: 10px 24px; font-size: 14px;">
+                CLICK TO START EXPLORING
+            </button>
+        </div>
+    </div>
+
+    <!-- Map Selection Catalog Modal -->
+    <div id="map-catalog-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Select 3D Outdoor World</h2>
+                <button id="btn-close-modal" class="btn">Close [ESC]</button>
+            </div>
+            <div id="catalog-cards-container" class="modal-body">
+                <!-- Dynamically populated from catalog.json -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Modules -->
+    <script src="/js/engine/CollisionSystem.js"></script>
+    <script src="/js/engine/PlayerController.js"></script>
+    <script src="/js/engine/WorldEngine.js"></script>
+    <script src="/js/ui/Minimap.js"></script>
+    <script src="/js/ui/HUD.js"></script>
+    <script src="/js/ui/CatalogUI.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

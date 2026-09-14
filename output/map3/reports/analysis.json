@@ -1,0 +1,75 @@
+{
+  "map_id": "map3",
+  "vertex_count": 67326,
+  "face_count": 130436,
+  "bounding_box": [
+    [
+      -0.7446178197860718,
+      -0.392079621553421,
+      0.3217550218105316
+    ],
+    [
+      0.589577317237854,
+      0.16652911901474,
+      1.4324913024902344
+    ]
+  ],
+  "extents": [
+    1.3342,
+    0.5586,
+    1.1107
+  ],
+  "centroid": [
+    -0.0551,
+    -0.0211,
+    0.9957
+  ],
+  "surface_area": 1.1143,
+  "convex_hull_volume": 0.214937,
+  "is_watertight": false,
+  "euler_number": -17,
+  "normal_distribution": {
+    "ground_flat_ratio": 0.0042,
+    "downward_ratio": 0.5136,
+    "vertical_walls_ratio": 0.1902,
+    "slopes_ratio": 0.2919,
+    "mean_normal_abs_y": 0.6471
+  },
+  "height_profile": {
+    "min_y": -0.3921,
+    "max_y": 0.1665,
+    "mean_y": 0.0027,
+    "median_y": 0.0325,
+    "p10": -0.185,
+    "p25": -0.0869,
+    "p75": 0.1168,
+    "p90": 0.1406,
+    "total_elevation_span": 0.5586
+  },
+  "components_analysis": {
+    "total_components": 19,
+    "largest_component_faces": 128724,
+    "largest_component_ratio": 0.9869,
+    "small_isolated_components": 17,
+    "top_5_component_sizes": [
+      128724,
+      1178,
+      266,
+      86,
+      84
+    ]
+  },
+  "vertex_color_summary": {
+    "has_vertex_colors": true,
+    "mean_rgb": [
+      93.7,
+      116.2,
+      60.5
+    ],
+    "std_rgb": [
+      63.9,
+      63.6,
+      41.4
+    ]
+  }
+}

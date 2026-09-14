@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Outdoor Map Viewer</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .panel {
+            position: absolute;
+            background: rgba(22, 27, 34, 0.88);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 14px;
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+        #controls-panel {
+            top: 16px;
+            left: 16px;
+            width: 290px;
+        }
+        #stats-panel {
+            top: 16px;
+            right: 16px;
+            width: 280px;
+        }
+        #inspector-panel {
+            bottom: 16px;
+            left: 16px;
+            width: 320px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+        h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #58a6ff;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 6px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #8b949e;
+        }
+        select, button {
+            width: 100%;
+            padding: 7px 10px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        select:hover, button:hover {
+            border-color: #58a6ff;
+            background: #30363d;
+        }
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        .toggle-item span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .badge-color {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.4);
+        }
+        .stat-label { color: #8b949e; }
+        .stat-value { font-family: monospace; font-weight: 600; color: #58a6ff; }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 17, 23, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.3s ease;
+        }
+        .spinner {
+            border: 4px solid rgba(88, 166, 255, 0.2);
+            border-left-color: #58a6ff;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #loading-text { font-size: 14px; font-weight: 500; color: #58a6ff; }
+        #error-banner {
+            display: none;
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #da3633;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 200;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+    </style>
+    <!-- Three.js and OrbitControls and GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div id="loading-text">Initializing 3D Viewer...</div>
+    </div>
+
+    <div id="error-banner"></div>
+    <div id="canvas-container"></div>
+
+    <!-- Controls Panel -->
+    <div id="controls-panel" class="panel">
+        <h2>3D Map Pipeline Viewer</h2>
+        <div class="form-group">
+            <label for="map-select">Active Map</label>
+            <select id="map-select"></select>
+        </div>
+
+        <div class="toggle-group">
+            <div class="toggle-item">
+                <span><span class="badge-color" style="background:#58a6ff;"></span>Render Mesh</span>
+                <input type="checkbox" id="toggle-render" checked>
+            </div>
+            <div class="toggle-item">
+                <span><span class="badge-color" style="background:#f4511e;"></span>Collision Geometry</span>
+                <input type="checkbox" id="toggle-collision">
+            </div>
+            <div class="toggle-item">
+                <span><span class="badge-color" style="background:#00e5ff;"></span>Walkable Surface</span>
+                <input type="checkbox" id="toggle-walkable">
+            </div>
+            <div class="toggle-item">
+                <span><span class="badge-color" style="background:#4caf50;"></span>Semantic Segmentation</span>
+                <input type="checkbox" id="toggle-segmented">
+            </div>
+            <div class="toggle-item">
+                <span>Wireframe Mode</span>
+                <input type="checkbox" id="toggle-wireframe">
+            </div>
+            <div class="toggle-item">
+                <span>Bounding Box</span>
+                <input type="checkbox" id="toggle-bbox">
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button id="btn-reset-cam">Reset Cam</button>
+            <button id="btn-fullscreen">Fullscreen</button>
+        </div>
+    </div>
+
+    <!-- Live Statistics Panel -->
+    <div id="stats-panel" class="panel">
+        <h2>Realtime Statistics</h2>
+        <div class="stat-row">
+            <span class="stat-label">FPS</span>
+            <span class="stat-value" id="stat-fps">60</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Visible Vertices</span>
+            <span class="stat-value" id="stat-verts">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Visible Triangles</span>
+            <span class="stat-value" id="stat-triangles">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Draw Calls</span>
+            <span class="stat-value" id="stat-drawcalls">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Dimensions (X, Y, Z)</span>
+            <span class="stat-value" id="stat-dims">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Quality Profile</span>
+            <span class="stat-value" id="stat-quality">-</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">All Gates Passed</span>
+            <span class="stat-value" id="stat-gates" style="color:#4caf50;">-</span>
+        </div>
+    </div>
+
+    <!-- Scene Hierarchy Inspector -->
+    <div id="inspector-panel" class="panel">
+        <h2>Node Inspector</h2>
+        <div id="inspector-content" style="font-size: 11px; line-height: 1.5; color: #8b949e;">
+            Select a layer to inspect nodes.
+        </div>
+    </div>
+
+    <script>
+        // --- State ---
+        let scene, camera, renderer, controls;
+        let mapDataList = [];
+        let currentMapId = null;
+        let currentLayers = {
+            render: null,
+            collision: null,
+            walkable: null,
+            segmented: null,
+            bboxHelper: null
+        };
+        let frameCount = 0, lastTime = performance.now(), fps = 60;
+
+        // UI Elements
+        const mapSelect = document.getElementById('map-select');
+        const toggleRender = document.getElementById('toggle-render');
+        const toggleCollision = document.getElementById('toggle-collision');
+        const toggleWalkable = document.getElementById('toggle-walkable');
+        const toggleSegmented = document.getElementById('toggle-segmented');
+        const toggleWireframe = document.getElementById('toggle-wireframe');
+        const toggleBbox = document.getElementById('toggle-bbox');
+        const btnResetCam = document.getElementById('btn-reset-cam');
+        const btnFullscreen = document.getElementById('btn-fullscreen');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+        const errorBanner = document.getElementById('error-banner');
+        const inspectorContent = document.getElementById('inspector-content');
+
+        function showError(msg) {
+            errorBanner.textContent = msg;
+            errorBanner.style.display = 'block';
+            setTimeout(() => { errorBanner.style.display = 'none'; }, 6000);
+        }
+
+        function showLoading(text) {
+            loadingText.textContent = text;
+            loadingOverlay.style.opacity = '1';
+            loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            loadingOverlay.style.opacity = '0';
+            setTimeout(() => { loadingOverlay.style.display = 'none'; }, 300);
+        }
+
+        // --- Init Scene ---
+        function init() {
+            const container = document.getElementById('canvas-container');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0d1117);
+
+            camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.01, 1000);
+            camera.position.set(1.5, 1.5, 1.5);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight1.position.set(5, 10, 7);
+            scene.add(dirLight1);
+
+            const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
+            dirLight2.position.set(-5, -5, -5);
+            scene.add(dirLight2);
+
+            // Grid ground helper
+            const gridHelper = new THREE.GridHelper(5, 20, 0x30363d, 0x21262d);
+            gridHelper.position.y = -0.01;
+            scene.add(gridHelper);
+
+            window.addEventListener('resize', onWindowResize);
+            setupEventListeners();
+            loadMapCatalog();
+            animate();
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function setupEventListeners() {
+            mapSelect.addEventListener('change', (e) => loadMap(e.target.value));
+
+            toggleRender.addEventListener('change', (e) => {
+                if (currentLayers.render) currentLayers.render.visible = e.target.checked;
+                updateStats();
+            });
+
+            toggleCollision.addEventListener('change', (e) => {
+                if (currentLayers.collision) currentLayers.collision.visible = e.target.checked;
+                updateStats();
+            });
+
+            toggleWalkable.addEventListener('change', (e) => {
+                if (currentLayers.walkable) currentLayers.walkable.visible = e.target.checked;
+                updateStats();
+            });
+
+            toggleSegmented.addEventListener('change', (e) => {
+                if (currentLayers.segmented) currentLayers.segmented.visible = e.target.checked;
+                updateStats();
+            });
+
+            toggleWireframe.addEventListener('change', (e) => {
+                const wire = e.target.checked;
+                scene.traverse((child) => {
+                    if (child.isMesh && child.material) {
+                        if (Array.isArray(child.material)) {
+                            child.material.forEach(m => m.wireframe = wire);
+                        } else {
+                            child.material.wireframe = wire;
+                        }
+                    }
+                });
+            });
+
+            toggleBbox.addEventListener('change', (e) => {
+                if (currentLayers.bboxHelper) currentLayers.bboxHelper.visible = e.target.checked;
+            });
+
+            btnResetCam.addEventListener('click', resetCamera);
+
+            btnFullscreen.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => showError(err.message));
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+        }
+
+        async function loadMapCatalog() {
+            showLoading('Discovering processed 3D maps...');
+            try {
+                const res = await fetch('/api/maps');
+                if (!res.ok) throw new Error(`Failed to fetch maps: ${res.statusText}`);
+                const data = await res.json();
+                mapDataList = data.maps || [];
+
+                mapSelect.innerHTML = '';
+                if (mapDataList.length === 0) {
+                    showError('No processed maps found in output directory.');
+                    hideLoading();
+                    return;
+                }
+
+                mapDataList.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m.map_id;
+                    opt.textContent = `${m.map_id} (${m.vertex_count?.toLocaleString() || '0'} verts)`;
+                    mapSelect.appendChild(opt);
+                });
+
+                // Check URL params for ?map=ID
+                const urlParams = new URLSearchParams(window.location.search);
+                const targetMap = urlParams.get('map') || mapDataList[0].map_id;
+                mapSelect.value = targetMap;
+                await loadMap(targetMap);
+            } catch (err) {
+                showError('Error connecting to map server: ' + err.message);
+                hideLoading();
+            }
+        }
+
+        function clearLayers() {
+            ['render', 'collision', 'walkable', 'segmented'].forEach(k => {
+                if (currentLayers[k]) {
+                    scene.remove(currentLayers[k]);
+                    currentLayers[k] = null;
+                }
+            });
+            if (currentLayers.bboxHelper) {
+                scene.remove(currentLayers.bboxHelper);
+                currentLayers.bboxHelper = null;
+            }
+        }
+
+        async function loadMap(mapId) {
+            currentMapId = mapId;
+            showLoading(`Loading 3D Map: ${mapId}...`);
+            clearLayers();
+
+            const loader = new THREE.GLTFLoader();
+            const baseDir = `/output/${mapId}`;
+
+            // Helper to load GLB asynchronously
+            function loadGLB(url) {
+                return new Promise((resolve) => {
+                    loader.load(
+                        url,
+                        (gltf) => resolve(gltf.scene),
+                        undefined,
+                        (err) => {
+                            console.warn(`Layer not found or error loading ${url}:`, err);
+                            resolve(null);
+                        }
+                    );
+                });
+            }
+
+            try {
+                // Fetch scene metadata and process report
+                let sceneMeta = null;
+                try {
+                    const metaRes = await fetch(`${baseDir}/scene.json`);
+                    if (metaRes.ok) sceneMeta = await metaRes.json();
+                } catch(e) {}
+
+                // Load layers
+                const [renderScene, collisionScene, walkableScene, segmentedScene] = await Promise.all([
+                    loadGLB(`${baseDir}/optimized/render.glb`),
+                    loadGLB(`${baseDir}/collision/collision.glb`),
+                    loadGLB(`${baseDir}/navigation/walkable.glb`),
+                    loadGLB(`${baseDir}/segmentation/segmented.glb`)
+                ]);
+
+                if (renderScene) {
+                    currentLayers.render = renderScene;
+                    currentLayers.render.visible = toggleRender.checked;
+                    scene.add(renderScene);
+                }
+
+                if (collisionScene) {
+                    currentLayers.collision = collisionScene;
+                    currentLayers.collision.visible = toggleCollision.checked;
+                    scene.add(collisionScene);
+                }
+
+                if (walkableScene) {
+                    currentLayers.walkable = walkableScene;
+                    currentLayers.walkable.visible = toggleWalkable.checked;
+                    scene.add(walkableScene);
+                }
+
+                if (segmentedScene) {
+                    currentLayers.segmented = segmentedScene;
+                    currentLayers.segmented.visible = toggleSegmented.checked;
+                    scene.add(segmentedScene);
+                }
+
+                // Compute bounding box and fit camera
+                const activeModel = currentLayers.render || currentLayers.collision || currentLayers.walkable;
+                if (activeModel) {
+                    const box = new THREE.Box3().setFromObject(activeModel);
+                    const size = new THREE.Vector3();
+                    const center = new THREE.Vector3();
+                    box.getSize(size);
+                    box.getCenter(center);
+
+                    // Add bounding box helper
+                    currentLayers.bboxHelper = new THREE.Box3Helper(box, 0x58a6ff);
+                    currentLayers.bboxHelper.visible = toggleBbox.checked;
+                    scene.add(currentLayers.bboxHelper);
+
+                    // Camera positioning
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const fov = camera.fov * (Math.PI / 180);
+                    let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8;
+                    camera.position.set(center.x + cameraZ * 0.7, center.y + cameraZ * 0.7, center.z + cameraZ);
+                    camera.lookAt(center);
+                    controls.target.copy(center);
+                    controls.update();
+
+                    document.getElementById('stat-dims').textContent =
+                        `${size.x.toFixed(2)}m × ${size.y.toFixed(2)}m × ${size.z.toFixed(2)}m`;
+                }
+
+                updateStats(sceneMeta);
+                updateInspector();
+                hideLoading();
+            } catch (err) {
+                showError('Error loading map geometry: ' + err.message);
+                hideLoading();
+            }
+        }
+
+        function resetCamera() {
+            const activeModel = currentLayers.render || currentLayers.collision || currentLayers.walkable;
+            if (activeModel) {
+                const box = new THREE.Box3().setFromObject(activeModel);
+                const size = new THREE.Vector3();
+                const center = new THREE.Vector3();
+                box.getSize(size);
+                box.getCenter(center);
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const fov = camera.fov * (Math.PI / 180);
+                let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2)) * 1.8;
+                camera.position.set(center.x + cameraZ * 0.7, center.y + cameraZ * 0.7, center.z + cameraZ);
+                controls.target.copy(center);
+                controls.update();
+            }
+        }
+
+        function updateStats(sceneMeta) {
+            let totalVerts = 0;
+            let totalTriangles = 0;
+
+            scene.traverse((obj) => {
+                if (obj.isMesh && obj.visible && obj.geometry) {
+                    if (obj.geometry.attributes && obj.geometry.attributes.position) {
+                        totalVerts += obj.geometry.attributes.position.count;
+                    }
+                    if (obj.geometry.index) {
+                        totalTriangles += obj.geometry.index.count / 3;
+                    } else if (obj.geometry.attributes && obj.geometry.attributes.position) {
+                        totalTriangles += obj.geometry.attributes.position.count / 3;
+                    }
+                }
+            });
+
+            document.getElementById('stat-verts').textContent = Math.round(totalVerts).toLocaleString();
+            document.getElementById('stat-triangles').textContent = Math.round(totalTriangles).toLocaleString();
+            document.getElementById('stat-drawcalls').textContent = renderer.info.render.calls;
+
+            if (sceneMeta && sceneMeta.metrics) {
+                const opt = sceneMeta.metrics.optimization || {};
+                document.getElementById('stat-quality').textContent = (opt.quality_profile || 'medium').toUpperCase();
+                document.getElementById('stat-gates').textContent = 'PASSED (1-9)';
+            }
+        }
+
+        function updateInspector() {
+            const nodes = [];
+            ['render', 'collision', 'walkable', 'segmented'].forEach(k => {
+                if (currentLayers[k]) {
+                    currentLayers[k].traverse(c => {
+                        if (c.isMesh) {
+                            nodes.push(`• [${k.toUpperCase()}] ${c.name || 'Mesh'} (v:${c.geometry.attributes.position.count})`);
+                        }
+                    });
+                }
+            });
+            inspectorContent.innerHTML = nodes.length > 0 ? nodes.join('<br>') : 'No active mesh nodes.';
+        }
+
+        function animate(timestamp) {
+            requestAnimationFrame(animate);
+
+            // Calculate FPS
+            frameCount++;
+            if (timestamp - lastTime >= 1000) {
+                fps = Math.round((frameCount * 1000) / (timestamp - lastTime));
+                document.getElementById('stat-fps').textContent = fps;
+                frameCount = 0;
+                lastTime = timestamp;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

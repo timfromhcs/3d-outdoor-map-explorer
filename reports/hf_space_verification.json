@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-09-14T20:39:21.585Z",
+  "hf_space_url": "https://timfromhcs-3d-outdoor-map-explorer.static.hf.space",
+  "load_time_ms": 4603,
+  "stats": {
+    "fps": "11 FPS",
+    "pos": "0.07, -0.16, 1.22",
+    "heading": "N (0°)",
+    "triangles": 142440,
+    "calls": 1
+  },
+  "console_errors": [],
+  "status": "VERIFIED"
+}

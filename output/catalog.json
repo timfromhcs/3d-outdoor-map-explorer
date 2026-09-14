@@ -1,0 +1,385 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-09-14T20:32:42.244160+00:00",
+  "map_count": 3,
+  "maps": [
+    {
+      "id": "map1",
+      "name": "Outdoor Environment MAP1",
+      "version": "1.0.0",
+      "created_at": "2026-09-14T20:01:21.085410+00:00",
+      "bounds": {
+        "min": [
+          -0.2735,
+          -0.1761,
+          0.7346
+        ],
+        "max": [
+          0.2695,
+          0.1237,
+          1.254
+        ],
+        "extents": [
+          0.543,
+          0.2998,
+          0.5194
+        ],
+        "center": [
+          -0.002,
+          -0.0262,
+          0.9943
+        ]
+      },
+      "spawn_points": [
+        {
+          "id": "spawn_default",
+          "name": "Ground Center Spawn",
+          "position": [
+            0.0702,
+            -0.0776,
+            1.2156
+          ],
+          "look_direction": [
+            162.2,
+            0.0
+          ],
+          "clearance_height": 0.08,
+          "surface_type": "walkable_ground",
+          "is_default": true
+        }
+      ],
+      "assets": {
+        "render": {
+          "path": "optimized/render.glb",
+          "size_bytes": 2869296,
+          "sha256": "53be115a8785b23223d6ed659b6249b50442cd153c6cad51e36d6d6f5c95efb2",
+          "triangle_count": 142440,
+          "vertex_count": 72440
+        },
+        "lod1": {
+          "path": "optimized/render_lod1.glb",
+          "size_bytes": 1437124,
+          "sha256": "18e292d206e991db4d119e22fcfec1912bc08ad66b3f178281e7cc9d3ed1ecb0",
+          "triangle_count": 71219,
+          "vertex_count": 36345
+        },
+        "lod2": {
+          "path": "optimized/render_lod2.glb",
+          "size_bytes": 720604,
+          "sha256": "0aa1dded307e2c8df38097b469d5f01a55a673765a2e92c702e0c0ed03f68ae1",
+          "triangle_count": 35608,
+          "vertex_count": 18271
+        },
+        "collision": {
+          "path": "collision/collision.glb",
+          "size_bytes": 62408,
+          "sha256": "9e06d006321fe82121240fe0eff4c95567b911ead6557c26082489954036f2d2",
+          "triangle_count": 2999,
+          "vertex_count": 1591
+        },
+        "walkable": {
+          "path": "navigation/walkable.glb",
+          "size_bytes": 3860,
+          "sha256": "1357a5cf9032e10ec1a12dfa722a3d12757d859fef9bc4e9b0f703d67755638f",
+          "triangle_count": 120,
+          "vertex_count": 92
+        },
+        "nav_graph": {
+          "path": "navigation/nav_graph.json",
+          "size_bytes": 346275,
+          "sha256": "ba637955a78a1fb36af16abf9536b84a11c0b1ba3f9d38aa593273a8cf8349cd",
+          "triangle_count": 0,
+          "vertex_count": 0
+        },
+        "segmentation": {
+          "path": "segmentation/segmented.glb",
+          "size_bytes": 6366336,
+          "sha256": "ed4a3b97454807d00afc59b36c275add11d8a65d577e6e5364aab26956242e54",
+          "triangle_count": 316536,
+          "vertex_count": 160430
+        }
+      },
+      "metrics": {
+        "render_triangles": 142440,
+        "render_vertices": 72440,
+        "collision_triangles": 2999,
+        "walkable_area_m2": 0.0001,
+        "nav_graph_nodes": 92,
+        "dimensions": [
+          0.543,
+          0.2998,
+          0.5194
+        ]
+      },
+      "features": {
+        "has_collision": true,
+        "has_walkable": true,
+        "has_nav_graph": true,
+        "has_ai_segmentation": true,
+        "has_lods": true
+      },
+      "reports": {
+        "process": "reports/process.json",
+        "validation": "reports/validation.json",
+        "analysis": "reports/analysis.json",
+        "cleanup": "reports/cleanup.json",
+        "optimization": "reports/optimization.json",
+        "collision": "reports/collision.json",
+        "walkability": "reports/walkability.json",
+        "segmentation": "reports/segmentation.json"
+      }
+    },
+    {
+      "id": "map2",
+      "name": "Outdoor Environment MAP2",
+      "version": "1.0.0",
+      "created_at": "2026-09-14T20:01:26.305557+00:00",
+      "bounds": {
+        "min": [
+          -0.3648,
+          -0.2036,
+          0.2695
+        ],
+        "max": [
+          0.2226,
+          0.0789,
+          1.5768
+        ],
+        "extents": [
+          0.5874,
+          0.2825,
+          1.3073
+        ],
+        "center": [
+          -0.0711,
+          -0.0623,
+          0.9232
+        ]
+      },
+      "spawn_points": [
+        {
+          "id": "spawn_default",
+          "name": "Ground Center Spawn",
+          "position": [
+            -0.027,
+            0.128,
+            0.3926
+          ],
+          "look_direction": [
+            -174.8,
+            0.0
+          ],
+          "clearance_height": 0.08,
+          "surface_type": "walkable_ground",
+          "is_default": true
+        }
+      ],
+      "assets": {
+        "render": {
+          "path": "optimized/render.glb",
+          "size_bytes": 2313844,
+          "sha256": "af11e218d3c54498e39cff631f339ada6a497c4ff07e67fe6a39d037a5061099",
+          "triangle_count": 114424,
+          "vertex_count": 58736
+        },
+        "lod1": {
+          "path": "optimized/render_lod1.glb",
+          "size_bytes": 1161808,
+          "sha256": "de5fa8130aa6bc8474c67138728429588fac33f834b3614d6b17c165aeccc2dc",
+          "triangle_count": 57212,
+          "vertex_count": 29643
+        },
+        "lod2": {
+          "path": "optimized/render_lod2.glb",
+          "size_bytes": 584776,
+          "sha256": "ba56fb1ba6d978d4220bf04148c7840cba0806140f02283467f9c09daf594d76",
+          "triangle_count": 28605,
+          "vertex_count": 15034
+        },
+        "collision": {
+          "path": "collision/collision.glb",
+          "size_bytes": 121956,
+          "sha256": "f4b45148b13034366b3df736cb6c5a427930133832297e1df5ad42b6cf522259",
+          "triangle_count": 5880,
+          "vertex_count": 3152
+        },
+        "walkable": {
+          "path": "navigation/walkable.glb",
+          "size_bytes": 4212,
+          "sha256": "a0ac3267225a5e7db8ebd47ff53b58836d4ddaed1265b6214c2ba85ee81022a9",
+          "triangle_count": 118,
+          "vertex_count": 115
+        },
+        "nav_graph": {
+          "path": "navigation/nav_graph.json",
+          "size_bytes": 262908,
+          "sha256": "708a06ea6b77ba65f6f3c927509a4b9998afda5810c5df7db819841ea782437a",
+          "triangle_count": 0,
+          "vertex_count": 0
+        },
+        "segmentation": {
+          "path": "segmentation/segmented.glb",
+          "size_bytes": 5124856,
+          "sha256": "e05771de8f1a063736e2bd4fe95dae6ee95d199806175645d083afaf55a35871",
+          "triangle_count": 254278,
+          "vertex_count": 129531
+        }
+      },
+      "metrics": {
+        "render_triangles": 114424,
+        "render_vertices": 58736,
+        "collision_triangles": 5880,
+        "walkable_area_m2": 0.0001,
+        "nav_graph_nodes": 115,
+        "dimensions": [
+          0.5874,
+          0.2825,
+          1.3073
+        ]
+      },
+      "features": {
+        "has_collision": true,
+        "has_walkable": true,
+        "has_nav_graph": true,
+        "has_ai_segmentation": true,
+        "has_lods": true
+      },
+      "reports": {
+        "process": "reports/process.json",
+        "validation": "reports/validation.json",
+        "analysis": "reports/analysis.json",
+        "cleanup": "reports/cleanup.json",
+        "optimization": "reports/optimization.json",
+        "collision": "reports/collision.json",
+        "walkability": "reports/walkability.json",
+        "segmentation": "reports/segmentation.json"
+      }
+    },
+    {
+      "id": "map3",
+      "name": "Outdoor Environment MAP3",
+      "version": "1.0.0",
+      "created_at": "2026-09-14T20:01:29.170772+00:00",
+      "bounds": {
+        "min": [
+          -0.744,
+          -0.3898,
+          0.3371
+        ],
+        "max": [
+          0.5897,
+          0.1665,
+          1.4277
+        ],
+        "extents": [
+          1.3338,
+          0.5563,
+          1.0906
+        ],
+        "center": [
+          -0.0771,
+          -0.1116,
+          0.8824
+        ]
+      },
+      "spawn_points": [
+        {
+          "id": "spawn_default",
+          "name": "Ground Center Spawn",
+          "position": [
+            0.404,
+            0.0424,
+            0.8809
+          ],
+          "look_direction": [
+            112.6,
+            0.0
+          ],
+          "clearance_height": 0.08,
+          "surface_type": "walkable_ground",
+          "is_default": true
+        }
+      ],
+      "assets": {
+        "render": {
+          "path": "optimized/render.glb",
+          "size_bytes": 1187844,
+          "sha256": "5e445560894802cfea3b5a736c9d3506ac1d806c0ae9808e907fa4dda99d29d6",
+          "triangle_count": 58454,
+          "vertex_count": 30339
+        },
+        "lod1": {
+          "path": "optimized/render_lod1.glb",
+          "size_bytes": 596300,
+          "sha256": "54fab3c17f130beddce830968293f36555cd3974073cebcab11879115d2a8cd5",
+          "triangle_count": 29227,
+          "vertex_count": 15288
+        },
+        "lod2": {
+          "path": "optimized/render_lod2.glb",
+          "size_bytes": 300016,
+          "sha256": "89ca0a0fd96309f99a60d45569318c839b5a974b4595459580ae4bd0661313db",
+          "triangle_count": 14613,
+          "vertex_count": 7731
+        },
+        "collision": {
+          "path": "collision/collision.glb",
+          "size_bytes": 63632,
+          "sha256": "b54d9413f754dc6918252f032861ac8474325e84dbb78746e0b6d0002a89b478",
+          "triangle_count": 3000,
+          "vertex_count": 1667
+        },
+        "walkable": {
+          "path": "navigation/walkable.glb",
+          "size_bytes": 3604,
+          "sha256": "5b559076b838392c338fe5c2fef32a6ff511fddf64b51488811e241471556e69",
+          "triangle_count": 100,
+          "vertex_count": 91
+        },
+        "nav_graph": {
+          "path": "navigation/nav_graph.json",
+          "size_bytes": 122148,
+          "sha256": "aeac9a890afd94c7eee7038392873bbcd2c2daea19bf01261fd9e228ecebe2aa",
+          "triangle_count": 0,
+          "vertex_count": 0
+        },
+        "segmentation": {
+          "path": "segmentation/segmented.glb",
+          "size_bytes": 2630672,
+          "sha256": "76fc7a786890106c6774f726ab1e67aa1e8d18dccab34e7766fb4966dc028e7c",
+          "triangle_count": 129902,
+          "vertex_count": 66927
+        }
+      },
+      "metrics": {
+        "render_triangles": 58454,
+        "render_vertices": 30339,
+        "collision_triangles": 3000,
+        "walkable_area_m2": 0.0009,
+        "nav_graph_nodes": 91,
+        "dimensions": [
+          1.3338,
+          0.5563,
+          1.0906
+        ]
+      },
+      "features": {
+        "has_collision": true,
+        "has_walkable": true,
+        "has_nav_graph": true,
+        "has_ai_segmentation": true,
+        "has_lods": true
+      },
+      "reports": {
+        "process": "reports/process.json",
+        "validation": "reports/validation.json",
+        "analysis": "reports/analysis.json",
+        "cleanup": "reports/cleanup.json",
+        "optimization": "reports/optimization.json",
+        "collision": "reports/collision.json",
+        "walkability": "reports/walkability.json",
+        "segmentation": "reports/segmentation.json"
+      }
+    }
+  ]
+}

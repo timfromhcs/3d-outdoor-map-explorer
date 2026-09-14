@@ -1,0 +1,745 @@
+{
+  "map_id": "map2",
+  "timestamp": "2026-09-14T20:01:26.305557+00:00",
+  "environment": {
+    "python_version": "3.12.13 (main, Jun  2 2026, 22:47:20) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD",
+    "trimesh_version": "5.1.0"
+  },
+  "input_file": "glbscene_All_camTrue_meshTrue (1).glb",
+  "input_sha256": "c6ed281c1a217c00af084b16c4f69f7d982f40ad282247326715154125d859fc",
+  "quality_profile": "medium",
+  "quality_gates": [
+    {
+      "gate_number": 1,
+      "name": "File Readable",
+      "status": "PASSED",
+      "message": "File readable (4.89 MB)",
+      "details": null
+    },
+    {
+      "gate_number": 2,
+      "name": "glTF Structure Valid",
+      "status": "PASSED",
+      "message": "glTF structure valid with warnings marked for cleanup",
+      "details": {
+        "map_id": "map2",
+        "source_file": "C:\\Users\\hcsme\\Desktop\\mapbuilder\\Maps\\map2\\glbscene_All_camTrue_meshTrue (1).glb",
+        "overall_status": "WARN",
+        "checks": [
+          {
+            "name": "glb_binary_header",
+            "status": "PASS",
+            "message": "Valid GLB 2.0 binary header, size: 5129128 bytes",
+            "details": null
+          },
+          {
+            "name": "gltf_structure",
+            "status": "PASS",
+            "message": "Valid glTF JSON structure with 3 nodes and 2 meshes",
+            "details": null
+          },
+          {
+            "name": "buffer_integrity",
+            "status": "PASS",
+            "message": "1 buffers validated",
+            "details": null
+          },
+          {
+            "name": "node_mesh_references",
+            "status": "PASS",
+            "message": "3 nodes reference valid mesh and child indices",
+            "details": null
+          },
+          {
+            "name": "camera_gizmos",
+            "status": "PASS",
+            "message": "No camera gizmo nodes detected",
+            "details": null
+          },
+          {
+            "name": "materials_textures",
+            "status": "PASS",
+            "message": "0 materials, 0 textures defined",
+            "details": null
+          },
+          {
+            "name": "geometry_finite",
+            "status": "PASS",
+            "message": "All vertices and normals contain finite numerical coordinates (no NaN/Inf)",
+            "details": null
+          },
+          {
+            "name": "degenerate_triangles",
+            "status": "WARN",
+            "message": "Found 8 degenerate/zero-area triangles (cleanup candidate)",
+            "details": null
+          },
+          {
+            "name": "manifold_edges",
+            "status": "WARN",
+            "message": "Found 18 non-manifold edges (typical in AI reconstructed meshes, requires cleanup)",
+            "details": null
+          },
+          {
+            "name": "component_connectivity",
+            "status": "WARN",
+            "message": "24 disconnected components detected (potential floating noise or multi-part structures)",
+            "details": null
+          },
+          {
+            "name": "bounding_box_scale",
+            "status": "PASS",
+            "message": "Bounding box scale is within standard realistic numeric range",
+            "details": null
+          }
+        ],
+        "summary": {
+          "total_vertices": 129616,
+          "total_faces": 254410,
+          "degenerate_faces": 8,
+          "nan_inf_vertices": 0,
+          "connected_components": 24,
+          "non_manifold_edges": 18,
+          "camera_nodes": 0,
+          "materials_count": 0,
+          "textures_count": 0
+        }
+      }
+    },
+    {
+      "gate_number": 3,
+      "name": "Geometry Analyzed",
+      "status": "PASSED",
+      "message": "Analyzed 254,362 faces across 4 components",
+      "details": null
+    },
+    {
+      "gate_number": 4,
+      "name": "Cleanup Successful",
+      "status": "PASSED",
+      "message": "Cleaned 254,362 -> 254,278 faces (removed 1 gizmos, 3 noise clusters)",
+      "details": {
+        "map_id": "map2",
+        "camera_gizmos_removed": 1,
+        "duplicate_vertices_removed": 0,
+        "degenerate_faces_removed": 0,
+        "isolated_components_removed": 3,
+        "isolated_faces_removed": 84,
+        "normals_recomputed": true,
+        "vertices_before": 129602,
+        "vertices_after": 129531,
+        "faces_before": 254362,
+        "faces_after": 254278,
+        "reduction_percentage": 0.03,
+        "output_validated_path": "output\\map2\\cleaned\\map_validated.glb",
+        "output_clean_path": "output\\map2\\cleaned\\map_clean.glb"
+      }
+    },
+    {
+      "gate_number": 5,
+      "name": "Optimization Successful",
+      "status": "PASSED",
+      "message": "Decimated 254,278 -> 114,424 faces (-55.0%), generated 3 LODs",
+      "details": {
+        "map_id": "map2",
+        "quality_profile": "medium",
+        "vertices_before": 129531,
+        "vertices_after": 58736,
+        "faces_before": 254278,
+        "faces_after": 114424,
+        "face_reduction_percentage": 55.0,
+        "file_size_before_bytes": 5124860,
+        "file_size_after_bytes": 2313844,
+        "file_size_reduction_percentage": 54.85,
+        "lods": [
+          {
+            "level": 0,
+            "faces": 114424,
+            "vertices": 58736,
+            "reduction_percentage": 0.0,
+            "output_path": "output\\map2\\optimized\\render.glb"
+          },
+          {
+            "level": 1,
+            "faces": 57212,
+            "vertices": 29643,
+            "reduction_percentage": 50.0,
+            "output_path": "output\\map2\\optimized\\render_lod1.glb"
+          },
+          {
+            "level": 2,
+            "faces": 28605,
+            "vertices": 15034,
+            "reduction_percentage": 75.0,
+            "output_path": "output\\map2\\optimized\\render_lod2.glb"
+          }
+        ],
+        "output_render_path": "output\\map2\\optimized\\render.glb"
+      }
+    },
+    {
+      "gate_number": 6,
+      "name": "Render Mesh Generated",
+      "status": "PASSED",
+      "message": "Generated high quality render mesh: render.glb",
+      "details": null
+    },
+    {
+      "gate_number": 7,
+      "name": "Collision Geometry Generated",
+      "status": "PASSED",
+      "message": "Physical collision mesh generated with 5,880 triangles (-97.69%)",
+      "details": {
+        "map_id": "map2",
+        "method": "simplified_static_mesh_and_convex_hulls",
+        "collision_source": "cleaned_map_mesh",
+        "triangle_count": 5880,
+        "vertex_count": 3152,
+        "reduction_percentage": 97.69,
+        "bounds": [
+          [
+            -0.3056,
+            -0.1355,
+            0.2777
+          ],
+          [
+            0.1927,
+            0.0779,
+            1.4573
+          ]
+        ],
+        "extents": [
+          0.4983,
+          0.2134,
+          1.1795
+        ],
+        "convex_hulls_count": 1,
+        "hulls_info": [
+          {
+            "hull_id": 0,
+            "vertex_count": 79,
+            "face_count": 154,
+            "centroid": [
+              -0.0502,
+              0.0081,
+              0.9121
+            ],
+            "bounds": [
+              [
+                -0.3056,
+                -0.1355,
+                0.2777
+              ],
+              [
+                0.1927,
+                0.0779,
+                1.4573
+              ]
+            ]
+          }
+        ],
+        "output_collision_path": "output\\map2\\collision\\collision.glb"
+      }
+    },
+    {
+      "gate_number": 8,
+      "name": "Walkable Surface Generated",
+      "status": "PASSED",
+      "message": "Extracted 118 walkable faces (0.00 m\u00b2), nav graph with 115 nodes",
+      "details": {
+        "map_id": "map2",
+        "walkable_faces_count": 118,
+        "walkable_area": 0.0001,
+        "walkable_ratio": 0.0002,
+        "slope_threshold_deg": 38.0,
+        "elevation_min": -0.1287,
+        "elevation_max": 0.048,
+        "nav_graph": {
+          "total_nodes": 115,
+          "total_edges": 3107,
+          "connected_components": 3,
+          "largest_component_nodes": 74,
+          "sample_path_found": true,
+          "sample_path_length": 0.0662,
+          "sample_path_nodes": 2
+        },
+        "output_walkable_glb": "output\\map2\\navigation\\walkable.glb",
+        "output_nav_graph_json": "output\\map2\\navigation\\nav_graph.json",
+        "status": "VERIFIED"
+      }
+    },
+    {
+      "gate_number": 9,
+      "name": "Browser Viewer Assets Verified",
+      "status": "PASSED",
+      "message": "All 3D layers (render, collision, walkable) verified loadable without errors",
+      "details": null
+    }
+  ],
+  "all_gates_passed": true,
+  "output_files": {
+    "scene.json": {
+      "path": "scene.json",
+      "sha256": "2417f124cda2c177a118cd20053c6fa7f1363d83fde37189a1fd26453e430e05",
+      "size_bytes": 10514
+    },
+    "cleaned/map_clean.glb": {
+      "path": "cleaned/map_clean.glb",
+      "sha256": "df83c5c6d3ece414c2bfbe47b68b77862334c273d472b0c2c4cd117500d99047",
+      "size_bytes": 5124860
+    },
+    "cleaned/map_validated.glb": {
+      "path": "cleaned/map_validated.glb",
+      "sha256": "f1c8b25c3551146377df2c4ddac7c67a52afad8e310bdfa1e1817f155424d259",
+      "size_bytes": 5127004
+    },
+    "collision/collision.glb": {
+      "path": "collision/collision.glb",
+      "sha256": "f4b45148b13034366b3df736cb6c5a427930133832297e1df5ad42b6cf522259",
+      "size_bytes": 121956
+    },
+    "navigation/nav_graph.json": {
+      "path": "navigation/nav_graph.json",
+      "sha256": "708a06ea6b77ba65f6f3c927509a4b9998afda5810c5df7db819841ea782437a",
+      "size_bytes": 262908
+    },
+    "navigation/walkable.glb": {
+      "path": "navigation/walkable.glb",
+      "sha256": "a0ac3267225a5e7db8ebd47ff53b58836d4ddaed1265b6214c2ba85ee81022a9",
+      "size_bytes": 4212
+    },
+    "optimized/render.glb": {
+      "path": "optimized/render.glb",
+      "sha256": "af11e218d3c54498e39cff631f339ada6a497c4ff07e67fe6a39d037a5061099",
+      "size_bytes": 2313844
+    },
+    "optimized/render_lod1.glb": {
+      "path": "optimized/render_lod1.glb",
+      "sha256": "de5fa8130aa6bc8474c67138728429588fac33f834b3614d6b17c165aeccc2dc",
+      "size_bytes": 1161808
+    },
+    "optimized/render_lod2.glb": {
+      "path": "optimized/render_lod2.glb",
+      "sha256": "ba56fb1ba6d978d4220bf04148c7840cba0806140f02283467f9c09daf594d76",
+      "size_bytes": 584776
+    },
+    "preview/index.html": {
+      "path": "preview/index.html",
+      "sha256": "1f7b4f01e7ce44be3dd9dccde1a002e7bd356d643013030e7c284638e6b547c5",
+      "size_bytes": 279
+    },
+    "reports/analysis.json": {
+      "path": "reports/analysis.json",
+      "sha256": "da44104b35dc1b59f52389bf03b98fafeab9881ea75cd9387f528acb38959456",
+      "size_bytes": 1432
+    },
+    "reports/cleanup.json": {
+      "path": "reports/cleanup.json",
+      "sha256": "bfe7d5148bc6821ddf830cacd7c2ff7e7b666639670081ddcbc374e585703cdc",
+      "size_bytes": 507
+    },
+    "reports/collision.json": {
+      "path": "reports/collision.json",
+      "sha256": "467a1b7f42d28d21558176752bda9e7d52c9868c86660bc920fabc9acbe3a98a",
+      "size_bytes": 889
+    },
+    "reports/optimization.json": {
+      "path": "reports/optimization.json",
+      "sha256": "5d2b1717eca01a0e71fa779f9770259187344f4cc9c5ad54da99a5b32524a52c",
+      "size_bytes": 956
+    },
+    "reports/segmentation.json": {
+      "path": "reports/segmentation.json",
+      "sha256": "68b45f817efd02c2786836afd6b78686718fb2c33102f384e7527ceb7aecc201",
+      "size_bytes": 3469
+    },
+    "reports/validation.json": {
+      "path": "reports/validation.json",
+      "sha256": "6b752f66d2d80d25ec21099981225650684fd287107cf452fce9aff58c52cd99",
+      "size_bytes": 2378
+    },
+    "reports/walkability.json": {
+      "path": "reports/walkability.json",
+      "sha256": "eb21a910d78339b3d5bb242bcc54b64e3f3208d2e0bd727f4f9fb99ac6c5fabd",
+      "size_bytes": 604
+    },
+    "segmentation/segmented.glb": {
+      "path": "segmentation/segmented.glb",
+      "sha256": "e05771de8f1a063736e2bd4fe95dae6ee95d199806175645d083afaf55a35871",
+      "size_bytes": 5124856
+    }
+  },
+  "metrics": {
+    "geometry_analysis": {
+      "map_id": "map2",
+      "vertex_count": 129602,
+      "face_count": 254362,
+      "bounding_box": [
+        [
+          -0.36579546332359314,
+          -0.20514355599880219,
+          0.2632717490196228
+        ],
+        [
+          0.2226712554693222,
+          0.07891497761011124,
+          1.5770426988601685
+        ]
+      ],
+      "extents": [
+        0.5885,
+        0.2841,
+        1.3138
+      ],
+      "centroid": [
+        -0.0457,
+        0.0062,
+        1.0492
+      ],
+      "surface_area": 0.4472,
+      "convex_hull_volume": 0.059413,
+      "is_watertight": false,
+      "euler_number": -30,
+      "normal_distribution": {
+        "ground_flat_ratio": 0.0042,
+        "downward_ratio": 0.5054,
+        "vertical_walls_ratio": 0.1327,
+        "slopes_ratio": 0.3577,
+        "mean_normal_abs_y": 0.6698
+      },
+      "height_profile": {
+        "min_y": -0.2051,
+        "max_y": 0.0789,
+        "mean_y": -0.0059,
+        "median_y": 0.0149,
+        "p10": -0.1109,
+        "p25": -0.0592,
+        "p75": 0.052,
+        "p90": 0.0689,
+        "total_elevation_span": 0.2841
+      },
+      "components_analysis": {
+        "total_components": 4,
+        "largest_component_faces": 254278,
+        "largest_component_ratio": 0.9997,
+        "small_isolated_components": 3,
+        "top_5_component_sizes": [
+          254278,
+          52,
+          28,
+          4
+        ]
+      },
+      "vertex_color_summary": {
+        "has_vertex_colors": true,
+        "mean_rgb": [
+          135.2,
+          141.7,
+          109.0
+        ],
+        "std_rgb": [
+          44.6,
+          38.1,
+          33.9
+        ]
+      }
+    },
+    "cleanup": {
+      "map_id": "map2",
+      "camera_gizmos_removed": 1,
+      "duplicate_vertices_removed": 0,
+      "degenerate_faces_removed": 0,
+      "isolated_components_removed": 3,
+      "isolated_faces_removed": 84,
+      "normals_recomputed": true,
+      "vertices_before": 129602,
+      "vertices_after": 129531,
+      "faces_before": 254362,
+      "faces_after": 254278,
+      "reduction_percentage": 0.03,
+      "output_validated_path": "output\\map2\\cleaned\\map_validated.glb",
+      "output_clean_path": "output\\map2\\cleaned\\map_clean.glb"
+    },
+    "optimization": {
+      "map_id": "map2",
+      "quality_profile": "medium",
+      "vertices_before": 129531,
+      "vertices_after": 58736,
+      "faces_before": 254278,
+      "faces_after": 114424,
+      "face_reduction_percentage": 55.0,
+      "file_size_before_bytes": 5124860,
+      "file_size_after_bytes": 2313844,
+      "file_size_reduction_percentage": 54.85,
+      "lods": [
+        {
+          "level": 0,
+          "faces": 114424,
+          "vertices": 58736,
+          "reduction_percentage": 0.0,
+          "output_path": "output\\map2\\optimized\\render.glb"
+        },
+        {
+          "level": 1,
+          "faces": 57212,
+          "vertices": 29643,
+          "reduction_percentage": 50.0,
+          "output_path": "output\\map2\\optimized\\render_lod1.glb"
+        },
+        {
+          "level": 2,
+          "faces": 28605,
+          "vertices": 15034,
+          "reduction_percentage": 75.0,
+          "output_path": "output\\map2\\optimized\\render_lod2.glb"
+        }
+      ],
+      "output_render_path": "output\\map2\\optimized\\render.glb"
+    },
+    "segmentation": {
+      "map_id": "map2",
+      "method": "AI_Vision_Augmented_Geometric_Segmentation",
+      "is_heuristic": false,
+      "ai_status": "Hugging Face Inference API authenticated (nvidia/segformer-b0-finetuned-ade-512-512)",
+      "ai_model": "nvidia/segformer-b0-finetuned-ade-512-512",
+      "ai_detections": [
+        {
+          "image_file": "image (2).png",
+          "detected_labels": [
+            "wall",
+            "building",
+            "sky",
+            "ceiling",
+            "grass",
+            "person",
+            "mountain",
+            "chair",
+            "water",
+            "sea",
+            "pool table",
+            "flower",
+            "awning",
+            "ball",
+            "trade name"
+          ],
+          "mapped_categories": [
+            "obstacles_props",
+            "steep_terrain",
+            "vegetation",
+            "walls_and_structures",
+            "buildings",
+            "ground_terrain"
+          ]
+        },
+        {
+          "image_file": "image (3).png",
+          "detected_labels": [
+            "wall",
+            "building",
+            "floor",
+            "ceiling",
+            "bed ",
+            "cabinet",
+            "mountain",
+            "box",
+            "chest of drawers",
+            "flower",
+            "awning",
+            "plaything",
+            "ball"
+          ],
+          "mapped_categories": [
+            "obstacles_props",
+            "walkable_surface",
+            "steep_terrain",
+            "vegetation",
+            "walls_and_structures",
+            "buildings"
+          ]
+        }
+      ],
+      "classes": {
+        "walkable_surface": {
+          "name": "walkable_surface",
+          "face_count": 246,
+          "face_ratio": 0.001,
+          "surface_area": 0.0002,
+          "color_rgba": [
+            0,
+            229,
+            255,
+            255
+          ]
+        },
+        "ground_terrain": {
+          "name": "ground_terrain",
+          "face_count": 161,
+          "face_ratio": 0.0006,
+          "surface_area": 0.0002,
+          "color_rgba": [
+            76,
+            175,
+            80,
+            255
+          ]
+        },
+        "walls_and_structures": {
+          "name": "walls_and_structures",
+          "face_count": 12932,
+          "face_ratio": 0.0509,
+          "surface_area": 0.011,
+          "color_rgba": [
+            188,
+            122,
+            34,
+            255
+          ]
+        },
+        "buildings": {
+          "name": "buildings",
+          "face_count": 4988,
+          "face_ratio": 0.0196,
+          "surface_area": 0.0028,
+          "color_rgba": [
+            63,
+            81,
+            181,
+            255
+          ]
+        },
+        "roofs_elevated": {
+          "name": "roofs_elevated",
+          "face_count": 878,
+          "face_ratio": 0.0035,
+          "surface_area": 0.0005,
+          "color_rgba": [
+            220,
+            53,
+            69,
+            255
+          ]
+        },
+        "steep_terrain": {
+          "name": "steep_terrain",
+          "face_count": 4007,
+          "face_ratio": 0.0158,
+          "surface_area": 0.003,
+          "color_rgba": [
+            158,
+            158,
+            158,
+            255
+          ]
+        },
+        "obstacles_props": {
+          "name": "obstacles_props",
+          "face_count": 88819,
+          "face_ratio": 0.3493,
+          "surface_area": 0.1221,
+          "color_rgba": [
+            255,
+            152,
+            0,
+            255
+          ]
+        },
+        "other": {
+          "name": "other",
+          "face_count": 142247,
+          "face_ratio": 0.5594,
+          "surface_area": 0.3073,
+          "color_rgba": [
+            100,
+            100,
+            100,
+            255
+          ]
+        }
+      },
+      "ground_elevation_range": [
+        -0.2046,
+        -0.0298
+      ],
+      "output_segmented_glb": "output\\map2\\segmentation\\segmented.glb"
+    },
+    "collision": {
+      "map_id": "map2",
+      "method": "simplified_static_mesh_and_convex_hulls",
+      "collision_source": "cleaned_map_mesh",
+      "triangle_count": 5880,
+      "vertex_count": 3152,
+      "reduction_percentage": 97.69,
+      "bounds": [
+        [
+          -0.3056,
+          -0.1355,
+          0.2777
+        ],
+        [
+          0.1927,
+          0.0779,
+          1.4573
+        ]
+      ],
+      "extents": [
+        0.4983,
+        0.2134,
+        1.1795
+      ],
+      "convex_hulls_count": 1,
+      "hulls_info": [
+        {
+          "hull_id": 0,
+          "vertex_count": 79,
+          "face_count": 154,
+          "centroid": [
+            -0.0502,
+            0.0081,
+            0.9121
+          ],
+          "bounds": [
+            [
+              -0.3056,
+              -0.1355,
+              0.2777
+            ],
+            [
+              0.1927,
+              0.0779,
+              1.4573
+            ]
+          ]
+        }
+      ],
+      "output_collision_path": "output\\map2\\collision\\collision.glb"
+    },
+    "walkability": {
+      "map_id": "map2",
+      "walkable_faces_count": 118,
+      "walkable_area": 0.0001,
+      "walkable_ratio": 0.0002,
+      "slope_threshold_deg": 38.0,
+      "elevation_min": -0.1287,
+      "elevation_max": 0.048,
+      "nav_graph": {
+        "total_nodes": 115,
+        "total_edges": 3107,
+        "connected_components": 3,
+        "largest_component_nodes": 74,
+        "sample_path_found": true,
+        "sample_path_length": 0.0662,
+        "sample_path_nodes": 2
+      },
+      "output_walkable_glb": "output\\map2\\navigation\\walkable.glb",
+      "output_nav_graph_json": "output\\map2\\navigation\\nav_graph.json",
+      "status": "VERIFIED"
+    }
+  },
+  "warnings": [
+    "Source file contains warnings (degenerate faces, non-manifold edges, or camera nodes)"
+  ],
+  "errors": []
+}

@@ -1,0 +1,21 @@
+{
+  "map_id": "map3",
+  "walkable_faces_count": 100,
+  "walkable_area": 0.0009,
+  "walkable_ratio": 0.0008,
+  "slope_threshold_deg": 38.0,
+  "elevation_min": -0.0912,
+  "elevation_max": -0.0078,
+  "nav_graph": {
+    "total_nodes": 91,
+    "total_edges": 1409,
+    "connected_components": 3,
+    "largest_component_nodes": 38,
+    "sample_path_found": true,
+    "sample_path_length": 0.0772,
+    "sample_path_nodes": 2
+  },
+  "output_walkable_glb": "output\\map3\\navigation\\walkable.glb",
+  "output_nav_graph_json": "output\\map3\\navigation\\nav_graph.json",
+  "status": "VERIFIED"
+}

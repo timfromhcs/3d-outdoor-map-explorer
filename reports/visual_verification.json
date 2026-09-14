@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-09-14T19:43:07.683Z",
+  "browser": "Chromium (SwiftShader WebGL)",
+  "maps_verified": [
+    {
+      "map_id": "map1",
+      "status": "RENDER_VERIFIED",
+      "stats": {
+        "fps": "15",
+        "vertices": "236.288",
+        "triangles": "465.426",
+        "dimensions": "0.54m × 0.30m × 0.52m",
+        "quality": "MEDIUM",
+        "gates": "PASSED (1-9)"
+      },
+      "screenshots": [
+        "screenshot_map1_render.png",
+        "screenshot_map1_collision.png",
+        "screenshot_map1_walkable.png"
+      ]
+    },
+    {
+      "map_id": "map3",
+      "status": "RENDER_VERIFIED",
+      "stats": {
+        "fps": "17",
+        "vertices": "99.024",
+        "triangles": "191.456",
+        "dimensions": "1.33m × 0.56m × 1.09m"
+      },
+      "screenshots": [
+        "screenshot_map3_render.png"
+      ]
+    }
+  ],
+  "console_errors": [],
+  "all_passed": true
+}

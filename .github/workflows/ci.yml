@@ -1,0 +1,32 @@
+name: CI Test & Quality Verification
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install trimesh[easy] pygltflib numpy scipy pillow pytest networkx shapely fast-simplification python-dotenv huggingface_hub
+
+      - name: Run Pytest Suite
+        run: |
+          pytest -v
+
+      - name: Validate Map Catalog & Manifests
+        run: |
+          python -c "import json, os; assert os.path.exists('output/catalog.json'), 'Missing catalog.json'; cat = json.load(open('output/catalog.json')); assert cat['map_count'] >= 1; print(f'Validated catalog with {cat[\"map_count\"]} maps')"

@@ -1,0 +1,36 @@
+{
+  "map_id": "map3",
+  "quality_profile": "medium",
+  "vertices_before": 66927,
+  "vertices_after": 30339,
+  "faces_before": 129902,
+  "faces_after": 58454,
+  "face_reduction_percentage": 55.0,
+  "file_size_before_bytes": 2630672,
+  "file_size_after_bytes": 1187844,
+  "file_size_reduction_percentage": 54.85,
+  "lods": [
+    {
+      "level": 0,
+      "faces": 58454,
+      "vertices": 30339,
+      "reduction_percentage": 0.0,
+      "output_path": "output\\map3\\optimized\\render.glb"
+    },
+    {
+      "level": 1,
+      "faces": 29227,
+      "vertices": 15288,
+      "reduction_percentage": 50.0,
+      "output_path": "output\\map3\\optimized\\render_lod1.glb"
+    },
+    {
+      "level": 2,
+      "faces": 14613,
+      "vertices": 7731,
+      "reduction_percentage": 75.0,
+      "output_path": "output\\map3\\optimized\\render_lod2.glb"
+    }
+  ],
+  "output_render_path": "output\\map3\\optimized\\render.glb"
+}

@@ -1,0 +1,16 @@
+{
+  "map_id": "map2",
+  "camera_gizmos_removed": 1,
+  "duplicate_vertices_removed": 0,
+  "degenerate_faces_removed": 0,
+  "isolated_components_removed": 3,
+  "isolated_faces_removed": 84,
+  "normals_recomputed": true,
+  "vertices_before": 129602,
+  "vertices_after": 129531,
+  "faces_before": 254362,
+  "faces_after": 254278,
+  "reduction_percentage": 0.03,
+  "output_validated_path": "output\\map2\\cleaned\\map_validated.glb",
+  "output_clean_path": "output\\map2\\cleaned\\map_clean.glb"
+}
